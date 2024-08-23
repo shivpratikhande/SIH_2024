@@ -1,0 +1,218 @@
+[
+    {
+        "text": "This Act shall be called the Indian Penal Code, and shall extend to the whole of India except the State of Jammu and Kashmir.",
+        "label": "1_1_introduction"
+    },
+    {
+        "text": "Every person shall be liable to punishment under this Code and not otherwise for every act or omission contrary to the provisions thereof, of which he shall be guilty within India.",
+        "label": "1_2_introduction"
+    },
+    {
+        "text": "Any person liable, by any Indian law, to be tried for an offence committed beyond India shall be dealt with according to the provisions of this Code for any act committed beyond India in the same manner as if such act had been committed within India.",
+        "label": "1_3_introduction"
+    },
+    {
+        "text": "The provisions of this Code apply also to any offence committed by:",
+        "label": "1_4_introduction"
+    },
+    {
+        "text": "Nothing in this Act shall affect the provisions of any Act for punishing mutiny and desertion of officers, soldiers, sailors or airmen in the service of the Government of India or the provision of any special or local law.",
+        "label": "1_5_introduction"
+    },
+    {
+        "text": "Throughout this Code every definition of an Offence, every penal provision and every illustration of every such definition or penal provision, shall be understood subject to the exceptions contained in the Chapter entitled \u201cGeneral Exceptions\u201d, though those exceptions are not repeated in such definition, penal provision, or illustration.",
+        "label": "2_6_general_explanations"
+    },
+    {
+        "text": "Every expression which is explained in any part of this Code, is used in every part of this Code in conformity with the Explanation.",
+        "label": "2_7_general_explanations"
+    },
+    {
+        "text": "The pronoun \u201che\u201d and its derivatives are used for any person, whether male or female.",
+        "label": "2_8_general_explanations"
+    },
+    {
+        "text": "Unless the contrary appears from the context, words importing the singular number include the plural number, and words importing the plural number include the singular number.",
+        "label": "2_9_general_explanations"
+    },
+    {
+        "text": "The word \u201cman\u201d denotes a male human being of any age;\nThe word \u201cwoman\u201d denotes a female human being of any age.",
+        "label": "2_10_general_explanations"
+    },
+    {
+        "text": "The word \u201cperson\u201d includes any Company or Association or body of persons, whether incorporated or not.",
+        "label": "2_11_general_explanations"
+    },
+    {
+        "text": "The word \u201cpublic\u201d includes any class of the public or any community.",
+        "label": "2_12_general_explanations"
+    },
+    {
+        "text": "[Repealed by the A. O. 1950]",
+        "label": "2_13_general_explanations"
+    },
+    {
+        "text": "The words \u201cservant of Government\u201d denote any officer or servant continued, appointed or employed in India by or under the authority of Government.",
+        "label": "2_14_general_explanations"
+    },
+    {
+        "text": "Repealed by A. O. 1937.",
+        "label": "2_15_general_explanations"
+    },
+    {
+        "text": "Repealed ibid.",
+        "label": "2_16_general_explanations"
+    },
+    {
+        "text": "The word \u201cGovernment\u201d denotes the Central Government or the Government of a State.",
+        "label": "2_17_general_explanations"
+    },
+    {
+        "text": "\u201cIndia\u201d means the territory of India excluding the State of Jammu and Kashmir.",
+        "label": "2_18_general_explanations"
+    },
+    {
+        "text": "The word \u201cJudge\u201d denotes not only every person who is officially designated as a Judge, but also every person.\nwho is empowered by law to give, in any legal proceeding, civil or criminal, a definitive judgment, or a judgment which, if not appealed against, would be definitive, or a judgment which, if confirmed by some other authority, would be definitive, or who is one of a body of persons, which body of persons is empowered by law to give such a judgment.",
+        "label": "2_19_general_explanations"
+    },
+    {
+        "text": "The words \u201cCourt of Justice\u201d denote a Judge who is empowered by law to act judicially alone, or a body of Judges which is empowered by law to act judicially as a body, when such Judge or body of Judges is acting judicially.",
+        "label": "2_20_general_explanations"
+    },
+    {
+        "text": "The words \u201cpublic servant\u201d denote a person falling under any of the descriptions hereinafter following, namely:",
+        "label": "2_21_general_explanations"
+    },
+    {
+        "text": "The words \u201cmovable property\u201d are intended to include corporeal property of every description, except land and things attached to the earth or permanently fastened to anything which is attached to the earth.",
+        "label": "2_22_general_explanations"
+    },
+    {
+        "text": "\u201cWrongful gain\u201d: Wrongful gain is gain by unlawful means of property to which the person gaining is not legally entitled.\n\u201cWrongful loss\u201d: Wrongful loss is the loss by unlawful means of property to which the person losing it is legally entitled.\n\u201cGaining wrongfully\u201d: A person is said to gain wrongfully when such person retains wrongfully, as well as when such person acquires wrongfully.\n\u201cLosing wrongfully\u201d: A person is said to lose wrongfully when such person is wrongfully kept out of any property, as well as when such person is wrongfully deprived of property.",
+        "label": "2_23_general_explanations"
+    },
+    {
+        "text": "Whoever does anything with the intention of causing wrongful gain to one person or wrongful loss to another person, is said to do that thing \u201cdishonestly\u201d.",
+        "label": "2_24_general_explanations"
+    },
+    {
+        "text": "A person is said to do a thing fraudulently if he does that thing with intent to defraud but not otherwise.",
+        "label": "2_25_general_explanations"
+    },
+    {
+        "text": "A person is said to have \u201creason to believe\u201d a thing, if he has sufficient cause to believe that thing but not otherwise.",
+        "label": "2_26_general_explanations"
+    },
+    {
+        "text": "When property is in the possession of a person\u2019s wife, clerk or servant, on account of that person, it is in that person\u2019s possession within the meaning of this Code.",
+        "label": "2_27_general_explanations"
+    },
+    {
+        "text": "A person is said to \u201ccounterfeit\u201d who causes one thing to resemble another thing, intending by means of that resemblance to practice deception, or knowing it to be likely that deception will thereby be practiced.",
+        "label": "2_28_general_explanations"
+    },
+    {
+        "text": "The word \u201cdocument\u201d denotes any matter expressed or described upon any substance by means of letters, figures or marks, or by more than one of those means, intended to be used, or which may be used, as evidence of that matter.",
+        "label": "2_29_general_explanations"
+    },
+    {
+        "text": "The words \u201celectronic record\u201d shall have the meaning assigned to them in clause (t) of sub-section (1) of section 2 of the Information Technology Act, 2000.",
+        "label": "2_29A_general_explanations"
+    },
+    {
+        "text": "The words \u201cvaluable security\u201d denote a document which is, or purports to be, a document whereby any legal right is created, extended, transferred, restricted, extinguished or released, or who hereby any person acknowledges that he lies under legal liability, or has not a certain legal right.",
+        "label": "2_30_general_explanations"
+    },
+    {
+        "text": "The words \u201ca will\u201d denote any testamentary document.",
+        "label": "2_31_general_explanations"
+    },
+    {
+        "text": "In every part of this Code, except where a contrary intention appears from the context, words which refer to acts done extend also to illegal omissions.",
+        "label": "2_32_general_explanations"
+    },
+    {
+        "text": "The word \u201cact\u201d denotes as well as series of acts as a single act: the word \u201comission\u201d denotes as well a series of omissions as a single omission.",
+        "label": "2_33_general_explanations"
+    },
+    {
+        "text": "When a criminal act is done by several persons in furtherance of the common intention of all, each of such persons is liable for that act in the same manner as if it were done by him alone.",
+        "label": "2_34_general_explanations"
+    },
+    {
+        "text": "Whenever an act, which is criminal only by reason of its being done with a criminal knowledge or intention, is done by several persons, each of such persons who joins in the act with such knowledge or intention is liable for the act in the same manner as if the act were done by him alone with that knowledge or intention.",
+        "label": "2_35_general_explanations"
+    },
+    {
+        "text": "Wherever the causing of a certain effect, or an attempt to cause that effect, by an act or by an omission, is an offence, it is to be understood that the causing of that effect partly by an act and partly by an omission is the same offence.",
+        "label": "2_36_general_explanations"
+    },
+    {
+        "text": "When an offence is committed by means of several acts, whoever intentionally co-operates in the commission of that offence by doing any one of those acts, either singly or jointly with any other person, commits that offence.",
+        "label": "2_37_general_explanations"
+    },
+    {
+        "text": "Where several persons are engaged or concerned in the commission of a criminal act, they may be guilty of different offences by means of that act.",
+        "label": "2_38_general_explanations"
+    },
+    {
+        "text": "A person is said to cause an effect \u201cvoluntarily\u201d when he causes it by means whereby he intended to cause it, or by means which, at the time of employing those means, he knew or had reason to believe to be likely to cause it.",
+        "label": "2_39_general_explanations"
+    },
+    {
+        "text": "Except in the Chapters and sections mentioned in clauses 2 and 3 of this section, the word \u201coffence\u201d denotes a thing made punishable by this Code.",
+        "label": "2_40_general_explanations"
+    },
+    {
+        "text": "A \u201cspecial law\u201d is a law applicable to a particular subject.",
+        "label": "2_41_general_explanations"
+    },
+    {
+        "text": "A \u201clocal law\u201d is a law applicable only to a particular part of India.",
+        "label": "2_42_general_explanations"
+    },
+    {
+        "text": "The word \u201cillegal\u201d is applicable to everything which is an offence or which is prohibited by law, or which furnishes ground for a civil action; and a person is said to be \u201clegally bound to do\u201d whatever it is illegal in him to omit.",
+        "label": "2_43_general_explanations"
+    },
+    {
+        "text": "The word \u201cinjury\u201d denotes any harm whatsoever illegally caused to any person, in body, mind, reputation or property.",
+        "label": "2_44_general_explanations"
+    },
+    {
+        "text": "The word \u201clife\u201d denotes the life of a human being, unless the contrary appears from the context.",
+        "label": "2_45_general_explanations"
+    },
+    {
+        "text": "The word \u201cdeath\u201d denotes the death of a human being unless the contrary appears from the context.",
+        "label": "2_46_general_explanations"
+    },
+    {
+        "text": "The word \u201canimal\u201d denotes any living creature, other than a human being.",
+        "label": "2_47_general_explanations"
+    },
+    {
+        "text": "The word \u201cvessel\u201d denotes anything made for the conveyance by water of human beings or of property.",
+        "label": "2_48_general_explanations"
+    },
+    {
+        "text": "Wherever the word \u201cyear\u201d or the word \u201cmonth\u201d is used, it is to be understood that the year or the month is to be reckoned according to the British calendar.",
+        "label": "2_49_general_explanations"
+    },
+    {
+        "text": "The word \u201csection\u201d denotes one of those portions of a Chapter of this Code which are distinguished by prefixed numeral figures.",
+        "label": "2_50_general_explanations"
+    },
+    {
+        "text": "The word \u201coath\u201d includes a solemn affirmation substituted by law for an oath, and any declaration required or authorized by law to be made before a public servant or to be used for the purpose of proof, whether in a Court of Justice or not.",
+        "label": "2_51_general_explanations"
+    },
+    {
+        "text": "Nothing is said to be done or believed in \u201cgood faith\u201d which is done or believed without due care and attention.",
+        "label": "2_52_general_explanations"
+    },
+    {
+        "text": "Except in section 157, and in section 130 in the case in which the harbour is given by the wife or husband of the person harboured, the word \u201charbour\u201d includes the supplying a person with shelter, food, drink, money, clothes, arms, ammunition or means of conveyance, or the assisting a person by any means, whether of the same kind as those enumerated in this section or not, to evade apprehension.",
+        "label": "2_52A_general_explanations"
+    }
+]
