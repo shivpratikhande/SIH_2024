@@ -6,9 +6,7 @@ const LawyerSchema = new mongoose.Schema({
   email_id: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   bar_registration_number: { type: String, required: true, unique: true },
-  cases_handled: [
-    { type: mongoose.Schema.Types.ObjectId, ref: "BailApplication" },
-  ],
+  cases_handled: [{ type: mongoose.Schema.Types.ObjectId, ref: "Case" }],
   precedents_used: [{ type: mongoose.Schema.Types.ObjectId, ref: "Precedent" }],
 });
 
