@@ -186,3 +186,50 @@ export const getPrecedentsByLawyerIdService = async (lawyerId) => {
     };
   }
 };
+
+export const getClientMeetingsService = async (lawyerId) => {
+  try {
+    // Find the lawyer by ID and select meetings_scheduled
+    const lawyer = await Lawyer.findById(lawyerId)
+      .select("meetings_scheduled")
+      .exec();
+
+    if (!lawyer) {
+      return {
+        status_code: ApiStatusCodes.DATA_NOT_FOUND,
+        data: null,
+        message: "Lawyer not found",
+      };
+    }
+
+    if (!lawyer.meetings_scheduled || lawyer.meetings_scheduled.length === 0) {
+      return {
+        status_code: ApiStatusCodes.DATA_NOT_FOUND,
+        data: null,
+        message: "No client meetings found for this lawyer",
+      };
+    }
+
+    // Transform meeting data to include only relevant details
+    const meetingData = lawyer.meetings_scheduled.map((meeting) => ({
+      clientId: meeting.client,
+      meetingDate: meeting.meetingDate,
+      location: meeting.location,
+      purpose: meeting.purpose,
+      notes: meeting.notes,
+    }));
+
+    return {
+      status_code: ApiStatusCodes.OK,
+      data: meetingData,
+      message: "Client meetings retrieved successfully",
+    };
+  } catch (err) {
+    console.error("Error fetching client meetings:", err); // Added log for errors
+    return {
+      status_code: ApiStatusCodes.INTERNAL_SERVER_ERROR,
+      data: null,
+      message: err.message,
+    };
+  }
+};

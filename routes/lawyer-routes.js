@@ -14,15 +14,30 @@ const router = Router();
 router.post("/login", LawyersController.loginLawyerController);
 
 // GET - Routes to get the details of all the lawyers //
-router.get("/getAll", LawyersController.getAllLawyersController);
+router.get(
+  "/getAll",
+  jwtAuthMiddleware,
+  LawyersController.getAllLawyersController
+);
 
 // GET - Routes to get the details of any specific lawyer
-router.get("/", LawyersController.getLawyerByIdController);
+router.get("/", jwtAuthMiddleware, LawyersController.getLawyerByIdController);
 
 // GET - Retrieve all cases handled by a specific lawyer
-router.post("/cases", LawyersController.getCasesByLawyerIdController);
+router.post(
+  "/cases",
+  jwtAuthMiddleware,
+  LawyersController.getCasesByLawyerIdController
+);
 
 // GET - Retrieve all precedents used by a specific lawyer
-router.post("/precedents", LawyersController.getPrecedentsByLawyerIdController);
+router.post(
+  "/precedents",
+  jwtAuthMiddleware,
+  LawyersController.getPrecedentsByLawyerIdController
+);
+
+// GET - Retrieve all client meetings of a individual lawyer
+router.post("/getAllMeetings", LawyersController.getClientMeetingsController);
 
 export default router;

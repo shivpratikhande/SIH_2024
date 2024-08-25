@@ -4,6 +4,7 @@ import {
   getLawyerByIdService,
   getCasesByLawyerIdService,
   getPrecedentsByLawyerIdService,
+  getClientMeetingsService,
 } from "../services/lawyer.service.js";
 import { responseFormatter } from "../utils/app.utils.js";
 import { ApiStatusCodes, ResponseMessages } from "../enums/app.enums.js";
@@ -284,6 +285,67 @@ export const getPrecedentsByLawyerIdController = async (req, res) => {
             false,
             null,
             "No precedents found for this lawyer"
+          )
+        );
+        break;
+      default:
+        res.json(
+          responseFormatter(
+            ApiStatusCodes.INTERNAL_SERVER_ERROR,
+            false,
+            null,
+            "Internal server error"
+          )
+        );
+    }
+  } catch (error) {
+    res.json(
+      responseFormatter(
+        ApiStatusCodes.INTERNAL_SERVER_ERROR,
+        false,
+        null,
+        error.message
+      )
+    );
+  }
+};
+
+/** Function to retrieve all client meetings for a specific lawyer */
+export const getClientMeetingsController = async (req, res) => {
+  try {
+    const { lawyerId } = req.body;
+
+    if (!lawyerId) {
+      return res.json(
+        responseFormatter(
+          ApiStatusCodes.BAD_REQUEST,
+          false,
+          null,
+          "Lawyer ID not provided"
+        )
+      );
+    }
+
+    const meetingsResponse = await getClientMeetingsService(lawyerId);
+
+    switch (meetingsResponse.status_code) {
+      case ApiStatusCodes.OK:
+        res.json(
+          responseFormatter(
+            ApiStatusCodes.OK,
+            true,
+            meetingsResponse.data,
+            "Client meetings retrieved successfully"
+          )
+        );
+        break;
+      case ApiStatusCodes.DATA_NOT_FOUND:
+        res.json(
+          responseFormatter(
+            ApiStatusCodes.DATA_NOT_FOUND,
+            false,
+            null,
+            "No client meetings found for this lawyer"
           )
         );
         break;

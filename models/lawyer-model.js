@@ -8,6 +8,24 @@ const LawyerSchema = new mongoose.Schema({
   bar_registration_number: { type: String, required: true, unique: true },
   cases_handled: [{ type: mongoose.Schema.Types.ObjectId, ref: "Case" }],
   precedents_used: [{ type: mongoose.Schema.Types.ObjectId, ref: "Precedent" }],
+  meetings_scheduled: [
+    {
+      _id: {
+        type: mongoose.Schema.Types.ObjectId,
+        default: mongoose.Types.ObjectId,
+      },
+      client: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required: true,
+      },
+      meetingDate: { type: Date, required: true },
+      location: { type: String, required: true },
+      purpose: { type: String, required: true }, // e.g., "Client Meeting" or "Court Appearance"
+      notes: { type: String },
+      createdAt: { type: Date, default: Date.now },
+    },
+  ],
 });
 
 // Pre-save hook to hash the password before saving the lawyer
