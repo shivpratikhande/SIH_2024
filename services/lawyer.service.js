@@ -187,6 +187,7 @@ export const getPrecedentsByLawyerIdService = async (lawyerId) => {
   }
 };
 
+// Service function to get the client meeting service //
 export const getClientMeetingsService = async (lawyerId) => {
   try {
     // Find the lawyer by ID and select meetings_scheduled
@@ -226,6 +227,37 @@ export const getClientMeetingsService = async (lawyerId) => {
     };
   } catch (err) {
     console.error("Error fetching client meetings:", err); // Added log for errors
+    return {
+      status_code: ApiStatusCodes.INTERNAL_SERVER_ERROR,
+      data: null,
+      message: err.message,
+    };
+  }
+};
+
+// Service function to get-court-appearance //
+export const getCourtAppearancesService = async (lawyerId) => {
+  try {
+    // Find the lawyer and populate the court_appearances field
+    const lawyer = await Lawyer.findById(lawyerId).populate(
+      "court_appearances",
+      "caseId clientName location date time"
+    );
+
+    if (!lawyer || !lawyer.court_appearances.length) {
+      return {
+        status_code: ApiStatusCodes.DATA_NOT_FOUND,
+        data: null,
+        message: "No court appearances found for this lawyer",
+      };
+    }
+
+    return {
+      status_code: ApiStatusCodes.OK,
+      data: lawyer.court_appearances,
+      message: "Court appearances retrieved successfully",
+    };
+  } catch (err) {
     return {
       status_code: ApiStatusCodes.INTERNAL_SERVER_ERROR,
       data: null,

@@ -48,3 +48,57 @@ export const loginUndertrialService = async (email_id, password) => {
     };
   }
 };
+
+/** Service function to get all under-trial prisoners */
+export const getAllUnderTrialPrisonersService = async () => {
+  try {
+    const prisoners = await Undertrial.find({});
+
+    if (!prisoners || prisoners.length === 0) {
+      return {
+        status_code: ApiStatusCodes.DATA_NOT_FOUND,
+        data: null,
+        message: "No under-trial prisoners found",
+      };
+    }
+
+    return {
+      status_code: ApiStatusCodes.OK,
+      data: prisoners,
+      message: "All under-trial prisoners retrieved successfully",
+    };
+  } catch (err) {
+    return {
+      status_code: ApiStatusCodes.INTERNAL_SERVER_ERROR,
+      data: null,
+      message: err.message,
+    };
+  }
+};
+// Service function to get all details of Prisoner by Name
+export const getPrisonerByNameService = async (name) => {
+  try {
+    const prisoner = await Undertrial.findOne({ name: name });
+
+    if (!prisoner) {
+      console.log("No prisoner found");
+      return {
+        status_code: ApiStatusCodes.DATA_NOT_FOUND,
+        data: null,
+        message: "Prisoner not found",
+      };
+    }
+
+    return {
+      status_code: ApiStatusCodes.OK,
+      data: prisoner,
+      message: "Prisoner retrieved successfully",
+    };
+  } catch (err) {
+    return {
+      status_code: ApiStatusCodes.INTERNAL_SERVER_ERROR,
+      data: null,
+      message: err.message,
+    };
+  }
+};

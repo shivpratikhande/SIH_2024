@@ -1,4 +1,8 @@
-import { loginUndertrialService } from "../services/under-trail-prisoner.service.js";
+import {
+  loginUndertrialService,
+  getAllUnderTrialPrisonersService,
+  getPrisonerByNameService,
+} from "../services/under-trail-prisoner.service.js";
 import { responseFormatter } from "../utils/app.utils.js";
 import { ApiStatusCodes, ResponseMessages } from "../enums/app.enums.js";
 
@@ -6,7 +10,6 @@ import { ApiStatusCodes, ResponseMessages } from "../enums/app.enums.js";
 export const loginUndertrialController = async (req, res) => {
   try {
     const { email_id, password } = req.body;
-    console.log(email_id, password);
 
     if (!email_id || !password) {
       res.json(
@@ -75,5 +78,127 @@ export const loginUndertrialController = async (req, res) => {
         error.message
       )
     );
+  }
+};
+
+export const getAllUnderTrialPrisonersController = async (req, res) => {
+  try {
+    const result = await getAllUnderTrialPrisonersService();
+
+    switch (result.status_code) {
+      case ApiStatusCodes.OK:
+        return res
+          .status(result.status_code)
+          .json(
+            responseFormatter(
+              ApiStatusCodes.OK,
+              true,
+              result.data,
+              result.message
+            )
+          );
+      case ApiStatusCodes.DATA_NOT_FOUND:
+        return res
+          .status(result.status_code)
+          .json(
+            responseFormatter(
+              ApiStatusCodes.DATA_NOT_FOUND,
+              false,
+              null,
+              result.message
+            )
+          );
+      default:
+        return res
+          .status(ApiStatusCodes.INTERNAL_SERVER_ERROR)
+          .json(
+            responseFormatter(
+              ApiStatusCodes.INTERNAL_SERVER_ERROR,
+              false,
+              null,
+              result.message || "An unexpected error occurred"
+            )
+          );
+    }
+  } catch (err) {
+    console.error("Controller error:", err); // Log the error
+    return res
+      .status(ApiStatusCodes.INTERNAL_SERVER_ERROR)
+      .json(
+        responseFormatter(
+          ApiStatusCodes.INTERNAL_SERVER_ERROR,
+          false,
+          null,
+          err.message || "An unexpected error occurred"
+        )
+      );
+  }
+};
+
+export const getPrisonerByNameController = async (req, res) => {
+  try {
+    const { name } = req.body;
+
+    if (!name) {
+      return res
+        .status(ApiStatusCodes.BAD_REQUEST)
+        .json(
+          responseFormatter(
+            ApiStatusCodes.BAD_REQUEST,
+            false,
+            null,
+            "Prisoner name not provided"
+          )
+        );
+    }
+
+    const result = await getPrisonerByNameService(name);
+
+    switch (result.status_code) {
+      case ApiStatusCodes.OK:
+        return res
+          .status(result.status_code)
+          .json(
+            responseFormatter(
+              ApiStatusCodes.OK,
+              true,
+              result.data,
+              result.message
+            )
+          );
+      case ApiStatusCodes.DATA_NOT_FOUND:
+        return res
+          .status(result.status_code)
+          .json(
+            responseFormatter(
+              ApiStatusCodes.DATA_NOT_FOUND,
+              false,
+              null,
+              result.message
+            )
+          );
+      default:
+        return res
+          .status(ApiStatusCodes.INTERNAL_SERVER_ERROR)
+          .json(
+            responseFormatter(
+              ApiStatusCodes.INTERNAL_SERVER_ERROR,
+              false,
+              null,
+              result.message || "An unexpected error occurred"
+            )
+          );
+    }
+  } catch (err) {
+    return res
+      .status(ApiStatusCodes.INTERNAL_SERVER_ERROR)
+      .json(
+        responseFormatter(
+          ApiStatusCodes.INTERNAL_SERVER_ERROR,
+          false,
+          null,
+          err.message || "An unexpected error occurred"
+        )
+      );
   }
 };

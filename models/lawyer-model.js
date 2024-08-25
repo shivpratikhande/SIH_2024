@@ -2,28 +2,26 @@ import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 
 const LawyerSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  email_id: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
-  bar_registration_number: { type: String, required: true, unique: true },
-  cases_handled: [{ type: mongoose.Schema.Types.ObjectId, ref: "Case" }],
-  precedents_used: [{ type: mongoose.Schema.Types.ObjectId, ref: "Precedent" }],
+  name: String,
+  email_id: String,
+  password: String,
+  bar_registration_number: String,
+  cases_handled: [mongoose.Schema.Types.ObjectId],
+  precedents_used: [mongoose.Schema.Types.ObjectId],
   meetings_scheduled: [
     {
-      _id: {
-        type: mongoose.Schema.Types.ObjectId,
-        default: mongoose.Types.ObjectId,
-      },
-      client: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
-        required: true,
-      },
-      meetingDate: { type: Date, required: true },
-      location: { type: String, required: true },
-      purpose: { type: String, required: true }, // e.g., "Client Meeting" or "Court Appearance"
-      notes: { type: String },
+      client: mongoose.Schema.Types.ObjectId,
+      meetingDate: Date,
+      location: String,
+      purpose: String,
+      notes: String,
       createdAt: { type: Date, default: Date.now },
+    },
+  ],
+  court_appearances: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "CourtAppearance",
     },
   ],
 });

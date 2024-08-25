@@ -5,6 +5,7 @@ import {
   getCasesByLawyerIdService,
   getPrecedentsByLawyerIdService,
   getClientMeetingsService,
+  getCourtAppearancesService,
 } from "../services/lawyer.service.js";
 import { responseFormatter } from "../utils/app.utils.js";
 import { ApiStatusCodes, ResponseMessages } from "../enums/app.enums.js";
@@ -368,5 +369,61 @@ export const getClientMeetingsController = async (req, res) => {
         error.message
       )
     );
+  }
+};
+
+/** Controller function to get all court appearances for a specific lawyer */
+export const getCourtAppearancesController = async (req, res) => {
+  try {
+    const { lawyerId } = req.params;
+
+    const result = await getCourtAppearancesService(lawyerId);
+
+    switch (result.status_code) {
+      case ApiStatusCodes.OK:
+        return res
+          .status(result.status_code)
+          .json(
+            responseFormatter(
+              ApiStatusCodes.OK,
+              true,
+              result.data,
+              result.message
+            )
+          );
+      case ApiStatusCodes.DATA_NOT_FOUND:
+        return res
+          .status(result.status_code)
+          .json(
+            responseFormatter(
+              ApiStatusCodes.DATA_NOT_FOUND,
+              false,
+              null,
+              result.message
+            )
+          );
+      default:
+        return res
+          .status(ApiStatusCodes.INTERNAL_SERVER_ERROR)
+          .json(
+            responseFormatter(
+              ApiStatusCodes.INTERNAL_SERVER_ERROR,
+              false,
+              null,
+              "An unexpected error occurred"
+            )
+          );
+    }
+  } catch (err) {
+    return res
+      .status(ApiStatusCodes.INTERNAL_SERVER_ERROR)
+      .json(
+        responseFormatter(
+          ApiStatusCodes.INTERNAL_SERVER_ERROR,
+          false,
+          null,
+          err.message
+        )
+      );
   }
 };
