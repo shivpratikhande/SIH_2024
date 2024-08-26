@@ -4,6 +4,7 @@ import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import Dashboard from './UndertrialComponents/Dashboard';
 import LawyerDashboard from "./lawerComponents/components/Pages/LawyerDashboard.jsx"
 import Home from './lawerComponents/components/Pages/Home.jsx';
+import JudgeDashboard from './lawerComponents/components/Pages/JudgeDashboard.jsx';
 
 const App = () => {
   return (
@@ -11,6 +12,7 @@ const App = () => {
       <Routes>
         <Route path="/utp/*" element={<Dashboard />} /> {/* Wildcard route to handle all paths in Dashboard */}
         <Route path="/lawyer/*" element={<LawyerDashboard />} /> {/* Wildcard route to handle all paths in Dashboard */}
+        <Route path="/judge/*" element={<JudgeDashboard />} />
         <Route path='/' element={<Home/>} />
 
       </Routes>
