@@ -3,10 +3,16 @@ import bcrypt from "bcrypt";
 
 const UndertrialPrisonerSchema = new mongoose.Schema({
   name: { type: String, required: true },
+  case_id: { type: String, required: true },
   email_id: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  prison_id: { type: String, required: true }, // ID of the prison where the prisoner is held
-  offense_id: { type: mongoose.Schema.Types.ObjectId, ref: "Offense" },
+  prison_id: { type: String, required: true },
+  offense_id: [
+    {
+      offense_name: { type: String },
+      acts_included: [String],
+    },
+  ],
   bail_applications: [
     { type: mongoose.Schema.Types.ObjectId, ref: "BailApplication" },
   ],
@@ -14,6 +20,41 @@ const UndertrialPrisonerSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Imprisonment",
   },
+  past_records: [
+    {
+      case_id: { type: mongoose.Schema.Types.ObjectId, ref: "Case" },
+      acts_subjected: [String],
+      status: String,
+      court_name: String,
+      sentence_duration: String,
+    },
+  ],
+  family_background: {
+    father_name: { type: String },
+    mother_name: { type: String },
+    siblings: [
+      {
+        name: { type: String },
+        relationship: { type: String }, // e.g., Brother, Sister
+        occupation: { type: String },
+      },
+    ],
+    marital_status: { type: String }, // e.g., Married, Single
+    children: [
+      {
+        name: { type: String },
+        age: { type: Number },
+        occupation: { type: String },
+      },
+    ],
+  },
+  documents: [
+    {
+      fileName: { type: String, required: true },
+      filePath: { type: String, required: true },
+      uploadDate: { type: Date, default: Date.now },
+    },
+  ],
 });
 
 // Pre-save hook to hash the password before saving the prisoner
