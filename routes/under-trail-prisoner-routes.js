@@ -6,7 +6,7 @@ import * as UnderTrailPrisonerController from "../controllers/under-trail-prison
 
 // Middlewares //
 import { jwtAuthMiddleware } from "../middlewares/middleware.js";
-
+import { upload } from "../middlewares/multer-config.js";
 // Define Router
 const router = Router();
 
@@ -16,6 +16,7 @@ router.post("/login", UnderTrailPrisonerController.loginUndertrialController);
 // GET Route to get all the data of Under-Trail-Prisoner
 router.get(
   "/getAllPrisonerDetails",
+
   UnderTrailPrisonerController.getAllUnderTrialPrisonersController
 );
 
@@ -23,6 +24,25 @@ router.get(
 router.post(
   "/getPrisonerDetailsByName",
   UnderTrailPrisonerController.getPrisonerByNameController
+);
+
+//GET Route to get all the details of Prisoners past records
+router.post(
+  "/getPastDetailsOfPrisoner",
+  UnderTrailPrisonerController.getPastRecordsController
+);
+
+// Route to get all the details of the Prisoners Family Background //
+router.post(
+  "/getDetailsOfPrisonerFamily",
+  UnderTrailPrisonerController.getPrisonerFamilyBackgroundController
+);
+
+// Route to upload all the documents specified by the Judge //
+router.post(
+  "/uploadAllDocs",
+  upload.single("document"),
+  UnderTrailPrisonerController.uploadDocumentController
 );
 
 export default router;

@@ -2,6 +2,7 @@ import express from "express";
 import db from "./db.js";
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
+import multer from "multer";
 
 //import userRoutes from "./routes/user-routes";
 import prisonerRoutes from "./routes/under-trail-prisoner-routes.js";
