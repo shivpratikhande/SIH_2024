@@ -10,10 +10,10 @@ const InfoSections = ({ id }) => {
 
   return (
     <div>
-      <div className=' bg-slate-100 flex justify-center py-5 text-4xl font-bold'>
+      <div className=' bg-slate-100 flex justify-center py-5 text-4xl font-bold '>
         <h1 >Our Services</h1>
       </div>
-      <div id={id} className="flex space-x-4 p- bg-slate-100 ">
+      <div id={id} className="flex space-x-4 p- bg-slate-100   px-16">
 
         <Card
           img="https://img.freepik.com/free-vector/man-red-shirt-with-white-collar_90220-2873.jpg?t=st=1724425136~exp=1724428736~hmac=5c5bc0132c7b8e515aeeb33d97d298bbd9192991d5e57ed9a7380e2e4667007f&w=740"

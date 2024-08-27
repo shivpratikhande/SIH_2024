@@ -43,7 +43,7 @@ const Navbar = () => {
 
 
       </nav>
-      <div className=' bg-black h-8 flex justify-center py-6'>
+      <div className=' bg-[#03346E] h-8 flex justify-center py-6'>
         <div className="lg:flex lg:items-center lg:space-x-8 ">
           <a href="#home" className="text-white hover:font-bold hover:bg-red-900 p-1 rounded-lg" >Home</a>
           <a href="#about" className="text-white hover:font-bold hover:bg-red-900 p-1 rounded-lg">About</a>
