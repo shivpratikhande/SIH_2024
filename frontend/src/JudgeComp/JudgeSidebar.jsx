@@ -26,15 +26,7 @@ const JudgeSidebar = () => {
             Hearing Schedule
           </NavLink>
         </li>
-        <li className="p-4 hover:bg-gray-200 hover:text-blue-900 cursor-pointer rounded transition-colors duration-300">
-          <NavLink
-            to="/judge/document-review"
-            className="block"
-            activeClassName="bg-gray-200 text-blue-900"
-          >
-            Document Review
-          </NavLink>
-        </li>
+       
         <li className="p-4 hover:bg-gray-200 hover:text-blue-900 cursor-pointer rounded transition-colors duration-300">
           <NavLink
             to="/judge/notifications"

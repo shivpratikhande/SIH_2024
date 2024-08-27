@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import JudgeSidebar from '../../../JudgeComp/JudgeSidebar';
-import CaseOverviewPage from '../../../JudgeComp/CaseOverviewPage';
+import CaseOverviewPage from '../../../JudgeComp/CasesPage';
 import HearingSchedulePage from '../../../JudgeComp/HearingSchedulePage';
-import DocumentReviewPage from '../../../JudgeComp/DocumentReviewPage';
 import NotificationsPage from '../../../JudgeComp/NotificationsPage';
 import ProfileBox from '../LawyerComp/ProfileBox'; // Import ProfileBox
 
@@ -30,7 +29,7 @@ const JudgeDashboard = () => {
           <Routes>
             <Route path="/case-overview" element={<CaseOverviewPage />} />
             <Route path="/hearing-schedule" element={<HearingSchedulePage />} />
-            <Route path="/document-review" element={<DocumentReviewPage />} />
+            {/* <Route path="/document-review" element={<DocumentReviewPage />} /> */}
             <Route path="/notifications" element={<NotificationsPage />} />
             <Route path="/" element={<CaseOverviewPage />} /> {/* Default route */}
           </Routes>

@@ -32,7 +32,7 @@ const NotificationsPage = () => {
 
   return (
     <div>
-      <h2 className="text-2xl font-bold mb-4 text-center">Notifications</h2>
+      <h2 className="text-2xl font-bold mb-4 ">Notifications</h2>
       <ul>
         {notifications.map((notification) => (
           <li key={notification.id} className="p-4 bg-white shadow mb-2 flex items-center">
