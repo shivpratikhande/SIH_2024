@@ -3,14 +3,19 @@ import db from "./db.js";
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import multer from "multer";
+import cors from 'cors';
 
 //import userRoutes from "./routes/user-routes";
 import prisonerRoutes from "./routes/under-trail-prisoner-routes.js";
 import judgeRoutes from "./routes/judge-routes.js";
 import lawyerRoutes from "./routes/lawyer-routes.js";
 import faceRecognitionRoutes from "./routes/faceRecognition-routes.js";
+
 dotenv.config();
 const app = express();
+
+app.use(cors())
+
 
 app.use(bodyParser.json()); // req.body
 const PORT = process.env.PORT || 3000;
