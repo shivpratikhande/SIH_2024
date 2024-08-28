@@ -11,9 +11,7 @@ const App = () => {
     <Router>
       <Routes>
         <Route path="/utp/*" element={<Dashboard />} />{" "}
-        {/* Wildcard route to handle all paths in Dashboard */}
         <Route path="/lawyer/*" element={<LawyerDashboard />} />{" "}
-        {/* Wildcard route to handle all paths in Dashboard */}
         <Route path="/judge/*" element={<JudgeDashboard />} />
         <Route path="/" element={<Home />} />
         
