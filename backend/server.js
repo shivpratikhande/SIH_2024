@@ -9,8 +9,7 @@ import cors from 'cors';
 import prisonerRoutes from "./routes/under-trail-prisoner-routes.js";
 import judgeRoutes from "./routes/judge-routes.js";
 import lawyerRoutes from "./routes/lawyer-routes.js";
-
-
+import faceRecognitionRoutes from "./routes/faceRecognition-routes.js";
 
 dotenv.config();
 const app = express();
@@ -26,6 +25,7 @@ const PORT = process.env.PORT || 3000;
 app.use("/judge", judgeRoutes);
 app.use("/lawyer", lawyerRoutes);
 app.use("/prisoner", prisonerRoutes);
+app.use("/face", faceRecognitionRoutes)
 
 app.listen(PORT, () => {
   console.log("listening on port 3000");

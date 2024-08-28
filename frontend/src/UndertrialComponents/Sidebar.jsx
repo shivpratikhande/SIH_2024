@@ -10,6 +10,7 @@ const Sidebar = ({ handleNavigation, activeComponent }) => {
     { label: 'Application Assistance', value: 'ApplicationAssistance' },
     { label: 'Notification Center', value: 'NotificationCenter' },
     { label: 'Legal Resources', value: 'LegalResources' },
+    { label: 'Face Recognition', value: 'PrisonerFaceRecognition' },
     { label: 'Choose Lawyer', value: 'ChooseLawyer' }
   ];
 
