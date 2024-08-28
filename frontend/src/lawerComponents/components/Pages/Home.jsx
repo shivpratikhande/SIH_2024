@@ -9,8 +9,8 @@ import Works from '../HomePage/Works'
 function Home() {
   return (
    <>
-   <Navbar/>
-   <CustomCarousel/>
+   <Navbar />
+   <CustomCarousel id=""/>
    <InfoSections/>
    <Works/>
    <Footer/>

@@ -24,7 +24,7 @@ const Navbar = () => {
 
           <div className=' flex gap-4'>
 
-            <div className=' border-black border p-3 px-6 rounded-lg  '>
+            <div className=' border-black  p-3 px-6 rounded-lg  '>
               <h1 className=' font-bold text-3xl  font-serif'>BailBridgers</h1>
 
             </div>

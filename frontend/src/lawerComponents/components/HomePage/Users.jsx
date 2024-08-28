@@ -109,7 +109,7 @@ const LoginModal = ({ title, onClose, apiEndPoint, navi}) => {
         password
       });
       console.log(response)
-      if (response.status === 200) {
+      if (response === 200) {
         alert('Login successful!');
         onClose();
         navigate(navi)

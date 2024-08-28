@@ -28,6 +28,7 @@ export const loginLawyerController = async (req, res) => {
     }
 
     const lawyerLoginResponse = await loginLawyerService(email_id, password);
+    console.log(lawyerLoginResponse.status_code)
 
     switch (lawyerLoginResponse.status_code) {
       case ApiStatusCodes.OK:
@@ -36,8 +37,11 @@ export const loginLawyerController = async (req, res) => {
             ApiStatusCodes.OK,
             true,
             lawyerLoginResponse.data,
-            "Lawyer logged in successfully"
+            "Lawyer logged in successfully",
+            console.log(lawyerLoginResponse.data)
+
           )
+          
         );
         break;
       case ApiStatusCodes.DATA_NOT_FOUND:
