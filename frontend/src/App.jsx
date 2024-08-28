@@ -8,15 +8,19 @@ import JudgeDashboard from "./lawerComponents/components/Pages/JudgeDashboard.js
 
 const App = () => {
   return (
-    <Router>
-      <Routes>
-        <Route path="/utp/*" element={<Dashboard />} />{" "}
-        <Route path="/lawyer/*" element={<LawyerDashboard />} />{" "}
-        <Route path="/judge/*" element={<JudgeDashboard />} />
-        <Route path="/" element={<Home />} />
-        
-      </Routes>
-    </Router>
+    <>
+      <Router>
+        <Routes>
+          <Route path="/utp/*" element={<Dashboard />} />{" "}
+          <Route path="/lawyer/*" element={<LawyerDashboard />} />{" "}
+          <Route path="/judge/*" element={<JudgeDashboard />} />
+          <Route path="/" element={<Home />} />
+        </Routes>
+
+      </Router>
+    </>
+
+
   );
 };
 

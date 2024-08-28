@@ -20,7 +20,7 @@ const InfoSections = ({ id }) => {
     console.log(value)
   };
 
-  
+
 
   const handleCloseModal = () => {
     setShowLoginModal(false);
@@ -35,7 +35,7 @@ const InfoSections = ({ id }) => {
         <Card
           img="https://img.freepik.com/free-vector/man-red-shirt-with-white-collar_90220-2873.jpg?t=st=1724425136~exp=1724428736~hmac=5c5bc0132c7b8e515aeeb33d97d298bbd9192991d5e57ed9a7380e2e4667007f&w=740"
           name="Undertrial Prisoners"
-          onClick={() => handleClick("utp", "http://192.168.1.12:3000/prisoner/login" 
+          onClick={() => handleClick("utp", "http://192.168.1.12:3000/prisoner/login"
           )}
         />
 
@@ -43,13 +43,13 @@ const InfoSections = ({ id }) => {
         <Card
           img="https://img.freepik.com/premium-vector/blue-gold-sign-that-says-symbol-justice_1205884-833.jpg?w=740"
           name="Lawyers"
-          onClick={() => handleClick("Lawyers","http://192.168.1.12:3000/lawyer/login")}
+          onClick={() => handleClick("Lawyer", "http://localhost:3000/lawyer/login")}
         />
 
         <Card
           img="https://img.freepik.com/free-photo/closeup-gavel-judgement-concept_53876-31913.jpg?uid=R91335437&ga=GA1.1.651042858.1721845919&semt=ais_hybrid"
           name="Judges"
-          onClick={() => handleClick("Judges")}
+          onClick={() => handleClick("Judge")}
         />
       </div>
 
@@ -67,7 +67,7 @@ const InfoSections = ({ id }) => {
 };
 
 const Card = ({ img, name, onClick }) => {
-  
+
   return (
     <div
       className="flex-1 bg-[#03346E] text-white flex flex-col items-center justify-center h-96 transition duration-300 ease-in-out hover:scale-105 rounded-xl cursor-pointer"
@@ -89,7 +89,7 @@ const Card = ({ img, name, onClick }) => {
   );
 };
 
-const LoginModal = ({ title, onClose, apiEndPoint, navi}) => {
+const LoginModal = ({ title, onClose, apiEndPoint, navi }) => {
   const navigate = useNavigate();
 
   const [email_id, setEmail_id] = useState('');
@@ -99,7 +99,7 @@ const LoginModal = ({ title, onClose, apiEndPoint, navi}) => {
   const handleLogin = async (event) => {
     event.preventDefault();
 
-    setErrorMessage(''); 
+    setErrorMessage('');
     console.log("handle login")
     console.log(apiEndPoint)
 
@@ -108,13 +108,12 @@ const LoginModal = ({ title, onClose, apiEndPoint, navi}) => {
         email_id,
         password
       });
-      console.log(response)
-      if (response === 200) {
+      if (response.data.status_code === 200) {
+        console.log(response)
+
         alert('Login successful!');
         onClose();
         navigate(navi)
-
-
 
       } else {
         setErrorMessage('Invalid username or password');

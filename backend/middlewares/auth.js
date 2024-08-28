@@ -1,7 +1,18 @@
-import jwt from "jsonwebtoken";
+import jwt from 'jsonwebtoken';
 
-// Function to generate JWT token
 export const generateToken = (userData) => {
-  // Generate a new JWT token using user data
-  return jwt.sign(userData, process.env.JWT_SECRET, { expiresIn: "30d" }); // Adjusted to 30 days (or keep your preferred duration)
+  const secretKey = process.env.JWT_SECRET || 'your_secret_key';
+  
+  return jwt.sign(userData, secretKey, { expiresIn: '30d' });
+};
+
+export const verifyToken = (token) => {
+  const secretKey = process.env.JWT_SECRET || 'your_secret_key';
+
+  try {
+    const decoded = jwt.verify(token, secretKey);
+    return { valid: true, decoded };
+  } catch (error) {
+    return { valid: false, error };
+  }
 };

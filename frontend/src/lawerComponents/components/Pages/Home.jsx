@@ -14,6 +14,7 @@ function Home() {
    <InfoSections/>
    <Works/>
    <Footer/>
+
    </>
   )
 }

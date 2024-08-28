@@ -1,6 +1,7 @@
 // MODULES //
 import { Router } from "express";
 
+
 // CONTROLLERS //
 import * as UsersController from "../controllers/users.controller";
 

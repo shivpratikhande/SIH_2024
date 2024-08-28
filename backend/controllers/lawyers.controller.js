@@ -9,8 +9,9 @@ import {
 } from "../services/lawyer.service.js";
 import { responseFormatter } from "../utils/app.utils.js";
 import { ApiStatusCodes, ResponseMessages } from "../enums/app.enums.js";
+import { generateToken } from "../middlewares/auth.js";
 
-/** Function to login Lawyer */
+/* Function to login Lawyer */
 export const loginLawyerController = async (req, res) => {
   try {
     const { email_id, password } = req.body;
@@ -30,8 +31,19 @@ export const loginLawyerController = async (req, res) => {
     const lawyerLoginResponse = await loginLawyerService(email_id, password);
     console.log(lawyerLoginResponse.status_code)
 
+   
+
     switch (lawyerLoginResponse.status_code) {
       case ApiStatusCodes.OK:
+
+      const token = generateToken({ email_id });
+      res.cookie('authToken', token, {
+        httpOnly: true, 
+        secure: process.env.NODE_ENV === 'production', 
+        sameSite: 'Lax', 
+        maxAge: 86400000,
+      });
+
         res.json(
           responseFormatter(
             ApiStatusCodes.OK,

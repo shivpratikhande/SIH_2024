@@ -11,6 +11,8 @@ import judgeRoutes from "./routes/judge-routes.js";
 import lawyerRoutes from "./routes/lawyer-routes.js";
 import faceRecognitionRoutes from "./routes/faceRecognition-routes.js";
 
+import cookieParser from 'cookie-parser';
+
 dotenv.config();
 const app = express();
 
@@ -18,6 +20,8 @@ app.use(cors())
 
 
 app.use(bodyParser.json()); // req.body
+app.use(cookieParser());
+
 const PORT = process.env.PORT || 3000;
 
 // Use the routers
