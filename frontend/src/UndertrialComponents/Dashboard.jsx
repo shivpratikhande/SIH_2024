@@ -11,6 +11,7 @@ import LegalResources from '../Pages/LegalResources';
 import NotificationCenter from '../Pages/Notifications';
 import ProfileBox from './ProfileBox'; // Import ProfileBox
 import Sidebar from './Sidebar'; // Import the updated Sidebar component
+import PrisonerFaceRecognition from '../Pages/PrisonerFaceRecognition';
 
 const Dashboard = () => {
   const [activeComponent, setActiveComponent] = useState('BailEligibility');
@@ -44,6 +45,8 @@ const Dashboard = () => {
         return <NotificationCenter />;
       case 'LegalResources':
         return <LegalResources />;
+      case 'PrisonerFaceRecognition':
+        return <PrisonerFaceRecognition />;
       case 'ChooseLawyer':
         return <ChooseLawyer />;
       default:
@@ -59,10 +62,10 @@ const Dashboard = () => {
       {/* Main Content */}
       <div className="flex-1 p-8 lg:ml-64 lg:pl-8"> {/* Adjusted margin to prevent overlap */}
         {/* Profile and Welcome Box */}
-        <ProfileBox 
-          showProfile={showProfile} 
-          onProfileClick={handleProfileClick} 
-          onCloseProfile={handleCloseProfile} 
+        <ProfileBox
+          showProfile={showProfile}
+          onProfileClick={handleProfileClick}
+          onCloseProfile={handleCloseProfile}
         />
         {renderComponent()}
       </div>
