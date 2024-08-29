@@ -12,7 +12,9 @@ const ChooseLawyer = () => {
   // Filter lawyers based on the search term
   const filteredLawyers = lawyers.filter((lawyer) =>
     lawyer.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    lawyer.specialization.toLowerCase().includes(searchTerm.toLowerCase())
+    lawyer.specialization.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    lawyer.location.toLowerCase().includes(searchTerm.toLowerCase()) 
+
   );
 
   return (
@@ -23,7 +25,7 @@ const ChooseLawyer = () => {
       <div className="mb-6">
         <input
           type="text"
-          placeholder="Search by name or specialization..."
+          placeholder="Search by name or specialization or location..."
           className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
           value={searchTerm}
           onChange={handleSearchChange}
@@ -34,17 +36,18 @@ const ChooseLawyer = () => {
       <ul className="space-y-6">
         {filteredLawyers.map((lawyer, index) => (
           <li key={index} className="p-4 bg-gray-100 border border-gray-300 rounded-lg hover:bg-gray-200 transition duration-300">
-            <div className="flex flex-col md:flex-row md:justify-between">
+            <div className="flex flex-col md:flex-row md:justify-between md:items-center">
               <div>
                 <p className="text-xl font-semibold">{lawyer.name}</p>
                 <p className="text-md text-gray-700">Specialization: {lawyer.specialization}</p>
                 <p className="text-md text-gray-700">Experience: {lawyer.experience}</p>
+                <p className="text-md text-gray-700">Location: {lawyer.location}</p>
                 <p className="text-md text-gray-700">Phone: {lawyer.contactDetails.phone}</p>
                 <p className="text-md text-gray-700">Email: {lawyer.contactDetails.email}</p>
               </div>
-              <div className="mt-4 md:mt-0">
+              <div className="mt-4 md:mt-0 md:flex md:items-center">
                 <button className="bg-[#00008B] text-white text-lg px-6 py-2 rounded-full hover:bg-primary-light transition duration-300">
-                  Book an Appointment
+                  Apply
                 </button>
               </div>
             </div>

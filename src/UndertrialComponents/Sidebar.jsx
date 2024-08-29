@@ -16,7 +16,7 @@ const Sidebar = ({ handleNavigation, activeComponent }) => {
 
   return (
     <div style={{ backgroundColor: '#03346E' }} className="w-64 h-screen text-white lg:fixed lg:top-0 lg:left-0 lg:h-screen">
-      <div className="p-4 text-2xl font-bold text-center">
+      <div className="p-4 text-2xl font-bold text-left">
         Undertrial Dashboard
       </div>
       <ul className="mt-6 space-y-4">
