@@ -9,8 +9,9 @@ import {
 } from "../services/lawyer.service.js";
 import { responseFormatter } from "../utils/app.utils.js";
 import { ApiStatusCodes, ResponseMessages } from "../enums/app.enums.js";
+import { generateToken } from "../middlewares/auth.js";
 
-/** Function to login Lawyer */
+/* Function to login Lawyer */
 export const loginLawyerController = async (req, res) => {
   try {
     const { email_id, password } = req.body;
@@ -28,16 +29,31 @@ export const loginLawyerController = async (req, res) => {
     }
 
     const lawyerLoginResponse = await loginLawyerService(email_id, password);
+    console.log(lawyerLoginResponse.status_code)
+
+
 
     switch (lawyerLoginResponse.status_code) {
       case ApiStatusCodes.OK:
+
+        const token = generateToken({ email_id });
+        res.cookie('authToken', token, {
+          httpOnly: true,
+          secure: false,
+          sameSite: 'Lax',
+          maxAge: 86400000,
+        });
+
         res.json(
           responseFormatter(
             ApiStatusCodes.OK,
             true,
             lawyerLoginResponse.data,
-            "Lawyer logged in successfully"
+            "Lawyer logged in successfully",
+            console.log(lawyerLoginResponse.data)
+
           )
+
         );
         break;
       case ApiStatusCodes.DATA_NOT_FOUND:
@@ -215,7 +231,10 @@ export const getCasesByLawyerIdController = async (req, res) => {
             casesResponse.data,
             "Cases retrieved successfully"
           )
+
         );
+        console.log(casesResponse)
+
         break;
       case ApiStatusCodes.DATA_NOT_FOUND:
         res.json(
@@ -249,7 +268,7 @@ export const getCasesByLawyerIdController = async (req, res) => {
   }
 };
 
-// Controller function to get all precedents used by a specific lawyer //
+// Controller function to get all precedents used by a specific lawyer
 export const getPrecedentsByLawyerIdController = async (req, res) => {
   try {
     const { lawyerId } = req.body;
@@ -426,4 +445,4 @@ export const getCourtAppearancesController = async (req, res) => {
         )
       );
   }
-};
+};  

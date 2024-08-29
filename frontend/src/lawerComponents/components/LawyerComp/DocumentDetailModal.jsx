@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
 import { DocumentTextIcon, IdentificationIcon, UserCircleIcon, BanknotesIcon, BriefcaseIcon, ClipboardDocumentIcon, EyeIcon } from '@heroicons/react/24/outline'; // Import icons
+import useStore from '../../../userStore';
 
 const DocumentDetailModal = ({ client, onClose }) => {
   const [showDocuments, setShowDocuments] = useState(false);
+  const { clients } = useStore();
+
+  console.log(clients[0])
+
 
   // Dummy document links
   const documentLinks = {
-    firDocuments: "https://example.com/fir_documents.pdf",
+    firDocuments: {clients} ,
     policeReport: "https://example.com/police_report.pdf",
     chargeSheet: "https://example.com/charge_sheet.pdf",
     courtOrders: "https://example.com/court_orders.pdf",
@@ -36,7 +41,7 @@ const DocumentDetailModal = ({ client, onClose }) => {
         >
           &times;
         </button>
-        <h2 className="text-2xl font-bold mb-4">{client.name} - Case #{client.caseNumber}</h2>
+        <h2 className="text-2xl font-bold mb-4">{client.data.name} - {client.data.case_id}</h2>
 
         <button
           onClick={handleToggleDocuments}
