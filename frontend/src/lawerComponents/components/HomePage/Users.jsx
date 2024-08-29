@@ -112,8 +112,8 @@ const LoginModal = ({ title, onClose, apiEndPoint, navi }) => {
       });
 
 
-     /*  const lawyerId = response.data.data.lawyer._id;
-      localStorage.setItem('lawyerId', lawyerId); */
+      const lawyerId = response.data.data.lawyer._id;
+      localStorage.setItem('lawyerId', lawyerId);
       
       if (response.data.status_code === 200) {
         console.log(response)
