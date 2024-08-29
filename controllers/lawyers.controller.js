@@ -129,6 +129,7 @@ export const getAllLawyersController = async (req, res) => {
     );
   }
 };
+
 /** Function to retrieve a Lawyer by ID */
 export const getLawyerByIdController = async (req, res) => {
   try {

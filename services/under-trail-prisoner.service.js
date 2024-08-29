@@ -7,7 +7,7 @@ import { comparePassword } from "../utils/app.utils.js";
 export const loginUndertrialService = async (email_id, password) => {
   try {
     // Find the under-trial prisoner by email_id
-    const undertrial = await Undertrial.findOne({ email_id }); // Corrected the query method and object
+    const undertrial = await Undertrial.findOne({ email_id });
 
     if (!undertrial) {
       return {
