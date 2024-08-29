@@ -1,13 +1,19 @@
 import React, { useState } from 'react';
 import DocumentDetailModal from './DocumentDetailModal'; // Ensure this import is correct
+import useStore from '../../../userStore';
+
 
 const ClientDocuments = () => {
   // Sample client data
-  const [clients] = useState([
+
+  const { clients } = useStore();
+
+
+/*   const [clients] = useState([
     { id: 1, name: 'John Doe', caseNumber: '12345' },
     { id: 2, name: 'Jane Smith', caseNumber: '67890' },
   ]);
-
+ */
   const [selectedClient, setSelectedClient] = useState(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -20,6 +26,7 @@ const ClientDocuments = () => {
     setIsModalVisible(false);
     setSelectedClient(null);
   };
+  console.log(clients)
 
   return (
     <div className="p-6">
@@ -28,8 +35,8 @@ const ClientDocuments = () => {
         <ul>
           {clients.map((client) => (
             <li key={client.id} className="mb-4 p-4 bg-gray-100 rounded">
-              <div className="font-bold text-lg">{client.name}</div>
-              <div>Case Number: {client.caseNumber}</div>
+              <div className="font-bold text-lg">{client.data.name}</div>
+              <div>Case Number: {client.data.case_id}</div>
               <button
                 onClick={() => handleViewDocuments(client)}
                 className="bg-blue-500 text-white px-4 py-2 rounded mt-2 hover:bg-blue-600"

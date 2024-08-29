@@ -1,11 +1,64 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import useStore from '../../../userStore';
 
 const Clients = () => {
-  const clients = [
-    { id: 1, name: 'John Doe', case: 'Case #12345', status: 'Active' },
-    { id: 2, name: 'Jane Smith', case: 'Case #67890', status: 'Closed' },
-    { id: 3, name: 'Alice Johnson', case: 'Case #24680', status: 'Active' },
-  ];
+
+  const { clients, setClients } = useStore();
+
+
+  useEffect(() => {
+    const fetchClients = async () => {
+      const lawyerId = localStorage.getItem('lawyerId');
+
+      if (!lawyerId) {
+        console.error('Lawyer ID not found');
+        return; // Exit if no lawyer ID
+      }
+
+      try {
+        // Fetch client IDs
+        const response = await axios.post('http://localhost:3000/lawyer/cases', { lawyerId }, {
+          withCredentials: true
+        });
+/* console.log(response)
+ *//* console.log(response.data.data)
+ */        if (response.data.status && response.data.data) {
+          const clientIds = response.data.data;
+          console.log(clientIds)
+
+          // Fetch detailed information for each client
+          const clientDetailsPromises = clientIds.map(id => 
+            axios.post(`http://localhost:3000/prisoner/getPrisonerDetailsByName`,{_id: "66c9913f6cdba09d94e14405" }, { withCredentials: true })
+          
+          );
+          const triL = clientIds.map(id => 
+            console.log(`${id}` )
+            
+          );
+          console.log("cle")
+
+          // Wait for all requests to complete
+          const clientDetailsResponses = await Promise.all(clientDetailsPromises);
+
+          // Extract data from responses
+          const clientsData = clientDetailsResponses.map(res => res.data);
+
+          setClients(clientsData)
+
+        } else {
+          console.error('Error fetching client IDs:', response.data.message);
+        }
+      } catch (error) {
+        console.error('Error fetching clients:', error);
+      }
+    };
+
+    fetchClients();
+  }, [setClients]);
+
+  console.log(clients)
+
 
   return (
     <div className="p-6">
@@ -22,13 +75,15 @@ const Clients = () => {
           <tbody>
             {clients.map((client) => (
               <tr key={client.id}>
-                <td className="border px-4 py-2">{client.name}</td>
-                <td className="border px-4 py-2">{client.case}</td>
+                <td className="border px-4 py-2">{client.data.name}</td>
+                <td className="border px-4 py-2">{client.data.case_id}</td>
                 <td className={`border px-4 py-2 ${client.status === 'Active' ? 'text-green-500' : 'text-red-500'}`}>
                   {client.status}
                 </td>
               </tr>
             ))}
+            
+
           </tbody>
         </table>
       </div>

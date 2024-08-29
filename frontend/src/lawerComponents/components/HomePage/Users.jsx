@@ -107,7 +107,13 @@ const LoginModal = ({ title, onClose, apiEndPoint, navi }) => {
       const response = await axios.post(apiEndPoint, {
         email_id,
         password
+      }, {
+        withCredentials: true
       });
+
+    
+      const lawyerId = response.data.data.lawyer._id;
+      localStorage.setItem('lawyerId', lawyerId);
       if (response.data.status_code === 200) {
         console.log(response)
 

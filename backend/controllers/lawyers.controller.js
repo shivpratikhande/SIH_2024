@@ -31,18 +31,18 @@ export const loginLawyerController = async (req, res) => {
     const lawyerLoginResponse = await loginLawyerService(email_id, password);
     console.log(lawyerLoginResponse.status_code)
 
-   
+
 
     switch (lawyerLoginResponse.status_code) {
       case ApiStatusCodes.OK:
 
-      const token = generateToken({ email_id });
-      res.cookie('authToken', token, {
-        httpOnly: true, 
-        secure: process.env.NODE_ENV === 'production', 
-        sameSite: 'Lax', 
-        maxAge: 86400000,
-      });
+        const token = generateToken({ email_id });
+        res.cookie('authToken', token, {
+          httpOnly: true,
+          secure: false,
+          sameSite: 'Lax',
+          maxAge: 86400000,
+        });
 
         res.json(
           responseFormatter(
@@ -53,7 +53,7 @@ export const loginLawyerController = async (req, res) => {
             console.log(lawyerLoginResponse.data)
 
           )
-          
+
         );
         break;
       case ApiStatusCodes.DATA_NOT_FOUND:
@@ -231,7 +231,10 @@ export const getCasesByLawyerIdController = async (req, res) => {
             casesResponse.data,
             "Cases retrieved successfully"
           )
+
         );
+        console.log(casesResponse)
+
         break;
       case ApiStatusCodes.DATA_NOT_FOUND:
         res.json(

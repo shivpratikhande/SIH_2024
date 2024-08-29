@@ -140,9 +140,9 @@ export const getAllUnderTrialPrisonersController = async (req, res) => {
 
 export const getPrisonerByNameController = async (req, res) => {
   try {
-    const { name } = req.body;
+    const { _id } = req.body;
 
-    if (!name) {
+    if (!_id) {
       return res
         .status(ApiStatusCodes.BAD_REQUEST)
         .json(
@@ -155,7 +155,7 @@ export const getPrisonerByNameController = async (req, res) => {
         );
     }
 
-    const result = await getPrisonerByNameService(name);
+    const result = await getPrisonerByNameService(_id);
 
     switch (result.status_code) {
       case ApiStatusCodes.OK:

@@ -77,9 +77,9 @@ export const getAllUnderTrialPrisonersService = async () => {
 };
 
 // Service function to get all details of Prisoner by Name //
-export const getPrisonerByNameService = async (name) => {
+export const getPrisonerByNameService = async (_id) => {
   try {
-    const prisoner = await Undertrial.findOne({ name: name });
+    const prisoner = await Undertrial.findById({ _id: _id });
 
     if (!prisoner) {
       console.log("No prisoner found");
