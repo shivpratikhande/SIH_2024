@@ -1,0 +1,55 @@
+[{
+        "name": "Lawyer A",
+        "specialization": "Criminal Law",
+        "experience": "10 years",
+        "contactDetails": {
+            "phone": "+91-9876543210",
+            "email": "lawyerA@example.com"
+        }
+    },
+    {
+        "name": "Lawyer B",
+        "specialization": "Bail Procedures",
+        "experience": "8 years",
+        "contactDetails": {
+            "phone": "+91-8765432109",
+            "email": "lawyerB@example.com"
+        }
+    },
+    {
+        "name": "Lawyer C",
+        "specialization": "Civil Rights",
+        "experience": "12 years",
+        "contactDetails": {
+            "phone": "+91-7654321098",
+            "email": "lawyerC@example.com"
+        }
+    },
+    {
+        "name": "Lawyer D",
+        "specialization": "Family Law",
+        "experience": "7 years",
+        "contactDetails": {
+            "phone": "+91-6543210987",
+            "email": "lawyerD@example.com"
+        }
+    },
+    {
+        "name": "Lawyer E",
+        "specialization": "Corporate Law",
+        "experience": "15 years",
+        "contactDetails": {
+            "phone": "+91-5432109876",
+            "email": "lawyerE@example.com"
+        }
+    },
+    {
+        "name": "Lawyer F",
+        "specialization": "Environmental Law",
+        "experience": "9 years",
+        "contactDetails": {
+            "phone": "+91-4321098765",
+            "email": "lawyerF@example.com"
+        }
+    }
+]
