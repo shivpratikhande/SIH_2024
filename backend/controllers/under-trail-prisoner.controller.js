@@ -145,21 +145,14 @@ export const getAllUnderTrialPrisonersController = async (req, res) => {
 
 export const getPrisonerByNameController = async (req, res) => {
   try {
-   const { _id } = req.body;
-if (!_id) {
-  return res
-    .status(ApiStatusCodes.BAD_REQUEST)
-    .json(responseFormatter(ApiStatusCodes.BAD_REQUEST, false, null, "Prisoner name not provided"));
-}
-const result = await getPrisonerByNameService(_id);
-const { _id } = req.body;
-if (!_id) {
-  return res
-    .status(ApiStatusCodes.BAD_REQUEST)
-    .json(responseFormatter(ApiStatusCodes.BAD_REQUEST, false, null, "Prisoner name not provided"));
-}
-const result = await getPrisonerByNameService(_id);
-
+    const { _id } = req.body;
+    if (!_id) {
+      return res
+        .status(ApiStatusCodes.BAD_REQUEST)
+        .json(responseFormatter(ApiStatusCodes.BAD_REQUEST, false, null, "Prisoner name not provided"));
+    }
+    const result = await getPrisonerByNameService(_id);
+    
     switch (result.status_code) {
       case ApiStatusCodes.OK:
         return res
