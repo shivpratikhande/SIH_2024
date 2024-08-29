@@ -249,7 +249,7 @@ export const getCasesByLawyerIdController = async (req, res) => {
   }
 };
 
-// Controller function to get all precedents used by a specific lawyer
+// Controller function to get all precedents used by a specific lawyer //
 export const getPrecedentsByLawyerIdController = async (req, res) => {
   try {
     const { lawyerId } = req.body;
