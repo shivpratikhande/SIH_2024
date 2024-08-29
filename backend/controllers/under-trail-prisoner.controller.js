@@ -13,6 +13,7 @@ import Lawyer from "../models/lawyer-model.js";
 import { Notification } from "../models/notification-model.js";
 import { Appointment } from "../models/appointment-model.js";
 import { generateAndDownloadPdf } from "../services/generate-get-pdf.service.js";
+import { generateToken } from "../middlewares/auth.js";
 
 /** Function to login Under-trial Prisoner */
 export const loginUndertrialController = async (req, res) => {
@@ -38,6 +39,16 @@ export const loginUndertrialController = async (req, res) => {
 
     switch (undertrialLoginResponse.status_code) {
       case ApiStatusCodes.OK:
+
+      const token = generateToken({ email_id });
+      res.cookie('authToken', token, {
+        httpOnly: true,
+        secure: false,
+        sameSite: 'Lax',
+        maxAge: 86400000,
+      });
+
+
         res.json(
           responseFormatter(
             ApiStatusCodes.OK,

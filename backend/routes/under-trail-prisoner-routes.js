@@ -40,9 +40,28 @@ router.post(
 
 // Route to upload all the documents specified by the Judge //
 router.post(
-  "/uploadAllDocs",
+  "/uploadDocument",
   upload.single("document"),
   UnderTrailPrisonerController.uploadDocumentController
 );
+
+// Route to get the uploaded document of Prisoner //
+//////////////
+router.post(
+  "/getDocument",
+  UnderTrailPrisonerController.handleDocumentsController
+);
+
+// Post route to Book an  Appointment of Lawyer
+router.post(
+  "/bookAppointment",
+  UnderTrailPrisonerController.bookAppointmentController
+);
+
+router.post(
+  "/generateBailPdf",
+  UnderTrailPrisonerController.handleGeneratePdfRequest
+);
+
 
 export default router;

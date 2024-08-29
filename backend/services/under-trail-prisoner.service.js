@@ -4,6 +4,7 @@ import { ApiStatusCodes, ResponseMessages } from "../enums/app.enums.js";
 import { generateToken } from "../middlewares/auth.js";
 import { comparePassword } from "../utils/app.utils.js";
 
+
 export const loginUndertrialService = async (email_id, password) => {
   try {
     // Find the under-trial prisoner by email_id
