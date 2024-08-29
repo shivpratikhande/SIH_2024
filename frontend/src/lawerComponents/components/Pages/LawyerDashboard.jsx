@@ -24,27 +24,26 @@ function LawyerDashboard() {
 
   return (
     <div className="flex h-screen">
-      <Sidebar />
-      <div className="flex-1 p-6 relative">
-        {/* Profile Box */}
+      <Sidebar /> {/* Sidebar */}
+      <div className="flex-1 p-6 relative ml-64"> {/* Main content area with margin */}
         <ProfileBox
           showProfile={showProfile}
           onProfileClick={handleProfileClick}
           onCloseProfile={handleCloseProfile}
         />
-
-        {/* Dynamic Content Below Profile Box */}
-        <Routes>
-          <Route path="/notifications" element={<NotificationsPage />} />
-          <Route path="/clients" element={<ClientsPage />} />
-          <Route path="/client-documents" element={<ClientDocumentsPage />} />
-          <Route path="/client-meetings" element={<ClientMeetingsPage />} />
-          <Route path="/document-upload" element={<DocumentUploadPage />} />
-          <Route path="/court-appearances" element={<CourtAppearancesPage />} />
-          <Route path="/precedents-used" element={<PrecedentsUsedPage />} /> {/* New Route */}
-          <Route path="/cases" element={<CasesPage />} /> {/* New Route */}
-          <Route path="/" element={<NotificationsPage />} /> {/* Default route */}
-        </Routes>
+        <div className="mt-0.5"> {/* Adjust margin-top for content to be below ProfileBox */}
+          <Routes>
+            <Route path="/notifications" element={<NotificationsPage />} />
+            <Route path="/clients" element={<ClientsPage />} />
+            <Route path="/client-documents" element={<ClientDocumentsPage />} />
+            <Route path="/client-meetings" element={<ClientMeetingsPage />} />
+            <Route path="/document-upload" element={<DocumentUploadPage />} />
+            <Route path="/court-appearances" element={<CourtAppearancesPage />} />
+            <Route path="/precedents-used" element={<PrecedentsUsedPage />} /> {/* New Route */}
+            <Route path="/cases" element={<CasesPage />} /> {/* New Route */}
+            <Route path="/" element={<NotificationsPage />} /> {/* Default route */}
+          </Routes>
+        </div>
       </div>
     </div>
   );

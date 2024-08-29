@@ -19,17 +19,16 @@ const JudgeDashboard = () => {
 
   return (
     <div className="flex h-screen">
-      <JudgeSidebar onProfileClick={handleProfileClick} /> {/* Sidebar */}
-      <div className="flex-1 p-6 relative">
+      <JudgeSidebar /> {/* Sidebar */}
+      <div className="flex-1 ml-64 p-6 relative"> {/* Add margin-left to make space for the sidebar */}
         <ProfileBox
           showProfile={showProfile}
           onCloseProfile={handleCloseProfile}
         />
-        <div className="mt-5"> {/* Margin added to move content below ProfileBox */}
+        <div className="mt-0.5"> {/* Margin added to move content below ProfileBox */}
           <Routes>
             <Route path="/case-overview" element={<CaseOverviewPage />} />
             <Route path="/hearing-schedule" element={<HearingSchedulePage />} />
-            {/* <Route path="/document-review" element={<DocumentReviewPage />} /> */}
             <Route path="/notifications" element={<NotificationsPage />} />
             <Route path="/" element={<CaseOverviewPage />} /> {/* Default route */}
           </Routes>

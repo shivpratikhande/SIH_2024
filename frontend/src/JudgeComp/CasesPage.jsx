@@ -1,8 +1,13 @@
-// src/lawyerComponents/components/CasesPage.jsx
 import React, { useState } from 'react';
 import CaseDetailModal from './CaseDetailModal';
+import { FaSearch, FaInfoCircle, FaCalendarAlt, FaExclamationTriangle } from 'react-icons/fa';
 
 const CasesPage = () => {
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedCase, setSelectedCase] = useState(null);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  // Dummy cases
   const dummyCases = [
     {
       id: 1,
@@ -76,8 +81,10 @@ const CasesPage = () => {
     }
   ];
 
-  const [selectedCase, setSelectedCase] = useState(null);
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  // Filter cases based on search query
+  const filteredCases = dummyCases.filter((caseItem) =>
+    caseItem.title.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   const handleCaseClick = (caseItem) => {
     setSelectedCase(caseItem);
@@ -89,22 +96,58 @@ const CasesPage = () => {
     setSelectedCase(null);
   };
 
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
+
   return (
-    <div className="p-4">
-      <h2 className="text-2xl font-bold mb-6">Case Overview</h2>
-      <ul className="w-full max-w-3xl">
-        {dummyCases.map((caseItem) => (
+    <div className="p-6 min-h-screen bg-gray-50">
+      <h2 className="text-3xl font-bold mb-6 text-gray-800 text-left">Case Overview</h2>
+      {/* Search Box */}
+      <div className="mb-6">
+        <div className="flex items-center space-x-4 w-full max-w-full">
+          <input
+            type="text"
+            placeholder="Search by Case ID or Client Name"
+            value={searchQuery}
+            onChange={handleSearchChange}
+            className="border border-gray-300 rounded-lg p-3 flex-1"
+          />
+          <button
+            onClick={() => setSearchQuery(searchQuery)} // Trigger search when button is clicked
+            className="bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary-dark flex items-center"
+          >
+            <FaSearch className="w-5 h-5 mr-2" />
+            <span className="font-semibold">Search</span>
+          </button>
+        </div>
+      </div>
+
+      <ul className="space-y-4">
+        {filteredCases.map((caseItem) => (
           <li
             key={caseItem.id}
-            className="p-4 bg-white shadow mb-4 rounded-lg cursor-pointer"
+            className="p-4 bg-white shadow-md rounded-lg hover:shadow-lg transition-shadow duration-300 ease-in-out cursor-pointer"
           >
-            <h3 className="font-semibold">{caseItem.caseNumber}</h3>
-            <button
-              className="mt-2 bg-blue-500 text-white px-4 py-2 rounded"
-              onClick={() => handleCaseClick(caseItem)}
-            >
-              View Details
-            </button>
+            <div className="flex items-center mb-4">
+              <div className="mr-4">
+                {caseItem.status === 'Pending' && <FaExclamationTriangle className="text-yellow-500 text-2xl" />}
+                {caseItem.status === 'Closed' && <FaInfoCircle className="text-green-500 text-2xl" />}
+                {caseItem.status === 'In Progress' && <FaCalendarAlt className="text-blue-500 text-2xl" />}
+              </div>
+              <div className="flex-1">
+                <h3 className="text-lg font-semibold text-left">{caseItem.title}</h3>
+                <p className="text-sm text-gray-600 text-left">Date: {caseItem.date}</p>
+                <p className="text-sm text-gray-600 text-left">Judge: {caseItem.assignedJudge}</p>
+                <p className="text-sm text-gray-600 text-left">Case Number: {caseItem.caseNumber}</p>
+              </div>
+              <button
+                className="bg-primary text-white px-4 py-2 rounded hover:bg-primary-dark transition-colors duration-300"
+                onClick={() => handleCaseClick(caseItem)}
+              >
+                View Details
+              </button>
+            </div>
           </li>
         ))}
       </ul>

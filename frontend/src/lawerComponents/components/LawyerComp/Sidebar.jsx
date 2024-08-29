@@ -3,74 +3,108 @@ import { NavLink } from 'react-router-dom';
 
 const Sidebar = () => {
   return (
-    <div style={{ backgroundColor: '#03346E' }} className="w-64 h-screen text-white">
-      <div className="p-2 text-2xl font-bold">Lawyer Dashboard</div>
-      <ul className="mt-6">
-        <li className="p-4">
+    <div style={{ backgroundColor: '#03346E' }} className="w-64 h-screen text-white lg:fixed lg:top-0 lg:left-0 lg:h-screen">
+      <div className="p-4 text-2xl font-bold text-center">
+        Lawyer Dashboard
+      </div>
+      <ul className="mt-6 space-y-4">
+        <li>
           <NavLink
             to="notifications"
-            className="hover:bg-slate-400 block px-4 py-1 rounded"
+            className={({ isActive }) =>
+              `block px-4 py-2 rounded-lg transition-colors duration-300 ${
+                isActive ? 'bg-white text-[#03346E] font-semibold' : 'hover:bg-white hover:text-[#03346E]'
+              }`
+            }
           >
             Notifications
           </NavLink>
         </li>
-        <li className="p-4">
+        <li>
           <NavLink
             to="clients"
-            className="hover:bg-slate-400 block px-4 py-1 rounded"
+            className={({ isActive }) =>
+              `block px-4 py-2 rounded-lg transition-colors duration-300 ${
+                isActive ? 'bg-white text-[#03346E] font-semibold' : 'hover:bg-white hover:text-[#03346E]'
+              }`
+            }
           >
             Clients
           </NavLink>
         </li>
-        <li className="p-4">
+        <li>
           <NavLink
             to="client-documents"
-            className="hover:bg-slate-400 block px-4 py-1 rounded"
+            className={({ isActive }) =>
+              `block px-4 py-2 rounded-lg transition-colors duration-300 ${
+                isActive ? 'bg-white text-[#03346E] font-semibold' : 'hover:bg-white hover:text-[#03346E]'
+              }`
+            }
           >
             Client Documents
           </NavLink>
         </li>
-        <li className="p-4">
+        <li>
           <NavLink
             to="client-meetings"
-            className="hover:bg-slate-400 block px-4 py-1 rounded"
+            className={({ isActive }) =>
+              `block px-4 py-2 rounded-lg transition-colors duration-300 ${
+                isActive ? 'bg-white text-[#03346E] font-semibold' : 'hover:bg-white hover:text-[#03346E]'
+              }`
+            }
           >
             Client Meetings
           </NavLink>
         </li>
-        <li className="p-4">
+        <li>
           <NavLink
             to="document-upload"
-            className="hover:bg-slate-400 block px-4 py-1 rounded"
+            className={({ isActive }) =>
+              `block px-4 py-2 rounded-lg transition-colors duration-300 ${
+                isActive ? 'bg-white text-[#03346E] font-semibold' : 'hover:bg-white hover:text-[#03346E]'
+              }`
+            }
           >
             Document Upload
           </NavLink>
         </li>
-        <li className="p-4">
+        <li>
           <NavLink
             to="court-appearances"
-            className="hover:bg-slate-400 block px-4 py-1 rounded"
+            className={({ isActive }) =>
+              `block px-4 py-2 rounded-lg transition-colors duration-300 ${
+                isActive ? 'bg-white text-[#03346E] font-semibold' : 'hover:bg-white hover:text-[#03346E]'
+              }`
+            }
           >
             Court Appearances
           </NavLink>
         </li>
-        <li className="p-4">
+        <li>
           <NavLink
             to="precedents-used"
-            className="hover:bg-slate-400 block px-4 py-1 rounded"
+            className={({ isActive }) =>
+              `block px-4 py-2 rounded-lg transition-colors duration-300 ${
+                isActive ? 'bg-white text-[#03346E] font-semibold' : 'hover:bg-white hover:text-[#03346E]'
+              }`
+            }
           >
             Precedents Used
           </NavLink>
         </li>
-        <li className="p-4">
+        <li>
           <NavLink
             to="cases"
-            className="hover:bg-slate-400 block px-4 py-1 rounded"
+            className={({ isActive }) =>
+              `block px-4 py-2 rounded-lg transition-colors duration-300 ${
+                isActive ? 'bg-white text-[#03346E] font-semibold' : 'hover:bg-white hover:text-[#03346E]'
+              }`
+            }
           >
             Cases
           </NavLink>
         </li>
-        <li className="hover:bg-slate-400 block px-7 py-1 rounded cursor-pointer">Logout</li>
+       
       </ul>
     </div>
   );
