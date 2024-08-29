@@ -445,4 +445,4 @@ export const getCourtAppearancesController = async (req, res) => {
         )
       );
   }
-};
+};  
