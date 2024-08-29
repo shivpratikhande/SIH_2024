@@ -35,7 +35,7 @@ const InfoSections = ({ id }) => {
         <Card
           img="https://img.freepik.com/free-vector/man-red-shirt-with-white-collar_90220-2873.jpg?t=st=1724425136~exp=1724428736~hmac=5c5bc0132c7b8e515aeeb33d97d298bbd9192991d5e57ed9a7380e2e4667007f&w=740"
           name="Undertrial Prisoners"
-          onClick={() => handleClick("utp", "http://192.168.1.12:3000/prisoner/login"
+          onClick={() => handleClick("utp", "http://localhost:3000/prisoner/login"
           )}
         />
 
@@ -49,7 +49,7 @@ const InfoSections = ({ id }) => {
         <Card
           img="https://img.freepik.com/free-photo/closeup-gavel-judgement-concept_53876-31913.jpg?uid=R91335437&ga=GA1.1.651042858.1721845919&semt=ais_hybrid"
           name="Judges"
-          onClick={() => handleClick("Judge")}
+          onClick={() => handleClick("Judge", "http://localhost:3000/judge/login")}
         />
       </div>
 
@@ -111,9 +111,10 @@ const LoginModal = ({ title, onClose, apiEndPoint, navi }) => {
         withCredentials: true
       });
 
-    
-      const lawyerId = response.data.data.lawyer._id;
-      localStorage.setItem('lawyerId', lawyerId);
+
+     /*  const lawyerId = response.data.data.lawyer._id;
+      localStorage.setItem('lawyerId', lawyerId); */
+      
       if (response.data.status_code === 200) {
         console.log(response)
 
