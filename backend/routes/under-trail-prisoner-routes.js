@@ -62,4 +62,9 @@ router.post(
   UnderTrailPrisonerController.handleGeneratePdfRequest
 );
 
+router.post(
+  "/caseDetailsByPrisonerId",
+  UnderTrailPrisonerController.getCasesByPrisonerIdController
+);
+
 export default router;

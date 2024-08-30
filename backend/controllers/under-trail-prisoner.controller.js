@@ -5,6 +5,7 @@ import {
   getPastRecordsService,
   getPrisonerFamilyBackgroundService,
   uploadDocumentService,
+  getCasesByPrisonerIdService,
 } from "../services/under-trail-prisoner.service.js";
 import { responseFormatter } from "../utils/app.utils.js";
 import { ApiStatusCodes, ResponseMessages } from "../enums/app.enums.js";
@@ -521,3 +522,23 @@ export async function handleGeneratePdfRequest(req, res) {
       .json({ message: "Error generating PDF.", error: error.message });
   }
 }
+
+// function to get the case details by Prisoner ID //
+export const getCasesByPrisonerIdController = async (req, res) => {
+  try {
+    const { prisonerId } = req.body;
+    // console.log(prisonerId);
+    console.log("yayaya");
+    const response = await getCasesByPrisonerIdService(prisonerId);
+    console.log(response);
+
+    res.status(response.status_code).json(response);
+  } catch (error) {
+    console.error("Error in getCasesByPrisonerIdController:", error.message);
+    res.status(ApiStatusCodes.INTERNAL_SERVER_ERROR).json({
+      status_code: ApiStatusCodes.INTERNAL_SERVER_ERROR,
+      data: null,
+      message: "Internal server error",
+    });
+  }
+};
