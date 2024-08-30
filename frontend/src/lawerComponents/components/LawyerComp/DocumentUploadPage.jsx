@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from 'axios';
 import { FaCheckCircle, FaExclamationCircle, FaUpload } from 'react-icons/fa';
 
 const DocumentUpload = () => {
@@ -14,6 +15,8 @@ const DocumentUpload = () => {
     { id: 1, clientId: 1, name: "Contract Agreement", date: "Aug 20, 2024" },
     { id: 2, clientId: 2, name: "Witness Statement", date: "Aug 22, 2024" },
   ]);
+  const [uploading, setUploading] = useState(false);
+  const [error, setError] = useState(null);
 
   const requiredDocuments = [
     "Affidavit of the accused",
@@ -33,16 +36,44 @@ const DocumentUpload = () => {
     setFiles(Array.from(event.target.files));
   };
 
-  const handleUpload = () => {
+  const handleUpload = async () => {
     if (selectedClient && files.length > 0) {
-      const newDocuments = Array.from(files).map((file, index) => ({
-        id: uploadedDocuments.length + index + 1,
-        clientId: selectedClient,
-        name: file.name,
-        date: new Date().toLocaleDateString(),
-      }));
-      setUploadedDocuments([...uploadedDocuments, ...newDocuments]);
-      setFiles([]);
+      setUploading(true);
+      setError(null);
+
+      // Create a FormData object to send the files
+      const formData = new FormData();
+      files.forEach(file => {
+        formData.append('files', file);
+      });
+      formData.append('clientId', selectedClient);
+
+      try {
+        const response = await axios.post('http://localhost:3000/lawyer/uploadDocument', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          },
+          withCredentials: true // Assuming credentials are needed
+        });
+
+        if (response.data.status_code === 200) {
+          // Assuming the response contains the uploaded documents
+          const newDocuments = response.data.documents.map((file, index) => ({
+            id: uploadedDocuments.length + index + 1,
+            clientId: selectedClient,
+            name: file.name,
+            date: new Date().toLocaleDateString(),
+          }));
+          setUploadedDocuments([...uploadedDocuments, ...newDocuments]);
+        } else {
+          setError("Failed to upload documents. Please try again.");
+        }
+      } catch (error) {
+        setError("An error occurred while uploading documents.");
+      } finally {
+        setUploading(false);
+        setFiles([]);
+      }
     }
   };
 
@@ -106,11 +137,12 @@ const DocumentUpload = () => {
           <button
             className="bg-primary text-white px-6 py-3 rounded-lg flex items-center justify-start hover:bg-blue-700 transition-colors duration-300"
             onClick={handleUpload}
-            disabled={!selectedClient || files.length === 0}
+            disabled={!selectedClient || files.length === 0 || uploading}
           >
             <FaUpload className="mr-2" />
-            Upload
+            {uploading ? 'Uploading...' : 'Upload'}
           </button>
+          {error && <p className="text-red-500 mt-2">{error}</p>}
         </div>
       </div>
 

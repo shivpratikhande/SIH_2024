@@ -1,20 +1,48 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
 const ClientMeetings = () => {
-  const [meetings, setMeetings] = useState([
-    { id: 1, client: 'John Doe', date: 'Aug 30, 2024', time: '10:00 AM', location: 'Office 101', purpose: 'Discuss case strategy', status: 'Scheduled' },
-    { id: 2, client: 'Jane Smith', date: 'Sep 1, 2024', time: '2:00 PM', location: 'Conference Room A', purpose: 'Review evidence', status: 'Confirmed' },
-    { id: 3, client: 'Alice Johnson', date: 'Sep 5, 2024', time: '11:00 AM', location: 'Virtual - Zoom', purpose: 'Pre-trial consultation', status: 'Pending' },
-    { id: 4, client: 'Bob Brown', date: 'Sep 10, 2024', time: '9:00 AM', location: 'Office 202', purpose: 'Settlement discussion', status: 'Scheduled' },
-    { id: 5, client: 'Mary Green', date: 'Sep 12, 2024', time: '3:00 PM', location: 'Conference Room B', purpose: 'Document review', status: 'Confirmed' },
-    { id: 6, client: 'James White', date: 'Sep 15, 2024', time: '1:00 PM', location: 'Virtual - Microsoft Teams', purpose: 'Legal strategy meeting', status: 'Pending' },
-  ]);
+  const [meetings, setMeetings] = useState([]);
 
+  useEffect(() => {
+    const fetchClients = async () => {
+      const lawyerId = localStorage.getItem('lawyerId');
+
+      if (!lawyerId) {
+        console.error('Lawyer ID not found');
+        return; // Exit if no lawyer ID
+      }
+
+      try {
+        const response = await axios.post('http://localhost:3000/lawyer/getAllMeetings', { lawyerId }, {
+          withCredentials: true
+        });
+        if (response.data.status_code === 200 && Array.isArray(response.data.data)) {
+          setMeetings(response.data.data);
+        } else {
+          console.error('Unexpected data format:', response.data);
+        }
+      } catch (error) {
+        console.error('Error fetching clients:', error);
+      }
+    };
+    fetchClients();
+  }, []);
+
+  const formatDate = (dateString) => {
+    const options = { year: 'numeric', month: 'short', day: 'numeric' };
+    const date = new Date(dateString);
+    return date.toLocaleDateString(undefined, options);
+  };
+
+  // Local status update without server request
   const updateStatus = (id, newStatus) => {
-    setMeetings(meetings.map(meeting => 
+    setMeetings(meetings.map(meeting =>
       meeting.id === id ? { ...meeting, status: newStatus } : meeting
     ));
   };
+
+  console.log(meetings)
 
   return (
     <div className="p-6 max-w-5xl mx-auto">
@@ -23,42 +51,46 @@ const ClientMeetings = () => {
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-2">
           {meetings.map((meeting) => (
             <div
-              key={meeting.id}
+              key={meeting.id} // Ensure this is a unique identifier
               className="bg-white border border-gray-300 shadow-md rounded-lg p-6 flex flex-col transition-transform transform hover:scale-105 hover:shadow-xl hover:border-blue-400"
             >
               <div className="font-semibold text-2xl mb-2 text-gray-900 text-left">{meeting.client}</div>
               <div className="text-gray-700 mb-2 text-left">
-                <span className="font-medium text-gray-800">Date:</span> {meeting.date}
+                <span className="font-medium text-gray-800">Date: </span>{formatDate(meeting.meetingDate)}
               </div>
-              <div className="text-gray-700 mb-2 text-left">
+              {/* <div className="text-gray-700 mb-2 text-left">
                 <span className="font-medium text-gray-800">Time:</span> {meeting.time}
-              </div>
+              </div> */}
               <div className="text-gray-700 mb-2 text-left">
                 <span className="font-medium text-gray-800">Location:</span> {meeting.location}
               </div>
               <div className="text-gray-700 mb-2 text-left">
                 <span className="font-medium text-gray-800">Purpose:</span> {meeting.purpose}
               </div>
+            {/*   <div className="text-gray-700 mb-2 text-left">
+                <span className="font-medium text-gray-800">Description:</span> {meeting.notes}
+              </div> */}
               <div className={`text-gray-700 mb-4 text-xl font-medium text-left ${meeting.status === 'Scheduled' ? 'text-blue-500' : meeting.status === 'Confirmed' ? 'text-green-500' : 'text-yellow-500'}`}>
                 <span className="font-semibold">Status:</span> {meeting.status}
               </div>
               <div className="flex space-x-3 mt-auto">
-                {/* Conditionally render the Confirm button based on the meeting status */}
+                {/* Buttons to update status locally */}
                 {meeting.status !== 'Confirmed' && (
                   <button
-                    className="bg-primary text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200"
+                    className="bg-primary text-white px-5 py-2 rounded-lg transition-colors duration-200"
                     onClick={() => updateStatus(meeting.id, 'Confirmed')}
                   >
                     Confirm
                   </button>
                 )}
-                <button
-                  className=" transition-colors duration-200"
-                  onClick={() => updateStatus(meeting.id, 'Cancelled')}
-                  disabled={meeting.status === 'Cancelled'}
-                >
-                  Cancel
-                </button>
+                {meeting.status !== 'Cancelled' && (
+                  <button
+                    className="bg-red-500 text-white px-5 py-2 rounded-lg hover:bg-red-700 transition-colors duration-200"
+                    onClick={() => updateStatus(meeting.id, 'Cancelled')}
+                  >
+                    Cancel
+                  </button>
+                )}
               </div>
             </div>
           ))}
