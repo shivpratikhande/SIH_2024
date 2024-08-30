@@ -142,6 +142,7 @@ export const getCasesByLawyerIdService = async (lawyerId) => {
 
     // Extract ObjectIds from cases_handled array
     const caseIds = lawyer.cases_handled.map((caseId) => caseId.toString());
+    console.log(caseIds);
 
     // Query UndertrialPrisoner with the extracted ObjectIds
     const cases = await Undertrial.find({ _id: { $in: caseIds } });
