@@ -3,6 +3,9 @@ import jwt from "jsonwebtoken";
 import { ApiStatusCodes, ResponseMessages } from "../enums/app.enums.js";
 import { generateToken } from "../middlewares/auth.js";
 import { comparePassword } from "../utils/app.utils.js";
+import { mongoose } from "mongoose";
+import Case from "../models/case-model.js";
+import { Prioritize } from "cloudflare/resources/custom-certificates/prioritize.mjs";
 
 export const loginUndertrialService = async (email_id, password) => {
   try {
@@ -204,6 +207,47 @@ export const uploadDocumentService = async (file, prisonerId) => {
       success: false,
       message: "Server Error",
       error: error.message,
+    };
+  }
+};
+
+export const getCasesByPrisonerIdService = async (prisonerId) => {
+  try {
+    // Validate the prisonerId format (optional)
+    if (!mongoose.Types.ObjectId.isValid(prisonerId)) {
+      return {
+        status_code: ApiStatusCodes.BAD_REQUEST,
+        data: null,
+        message: "Invalid prisoner ID format",
+      };
+    }
+
+    console.log(prisonerId);
+    // Find the case based on the prisonerId
+    const cases = await Case.findOne({ prisonerId: prisonerId });
+    console.log(cases);
+
+    // Check if any cases were found
+    if (!cases || cases.length === 0) {
+      return {
+        status_code: ApiStatusCodes.DATA_NOT_FOUND,
+        data: null,
+        message: "No cases found for this prisoner",
+      };
+    }
+
+    // Return the cases with a success status code
+    return {
+      status_code: ApiStatusCodes.OK,
+      data: cases,
+      message: "Cases retrieved successfully",
+    };
+  } catch (error) {
+    console.error("Error in getCasesByPrisonerIdService:", error.message);
+    return {
+      status_code: ApiStatusCodes.INTERNAL_SERVER_ERROR,
+      data: null,
+      message: "Internal server error",
     };
   }
 };
