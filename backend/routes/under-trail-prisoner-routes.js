@@ -20,7 +20,7 @@ router.get(
   UnderTrailPrisonerController.getAllUnderTrialPrisonersController
 );
 
-// GET Route to get all the detail of Prisoner by Name
+// GET Route to get all the detail of Prisoner by Name //
 router.post(
   "/getPrisonerDetailsByName",
   UnderTrailPrisonerController.getPrisonerByNameController
@@ -46,7 +46,6 @@ router.post(
 );
 
 // Route to get the uploaded document of Prisoner //
-//////////////
 router.post(
   "/getDocument",
   UnderTrailPrisonerController.handleDocumentsController
@@ -62,6 +61,5 @@ router.post(
   "/generateBailPdf",
   UnderTrailPrisonerController.handleGeneratePdfRequest
 );
-
 
 export default router;
