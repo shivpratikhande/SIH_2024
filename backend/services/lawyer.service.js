@@ -5,6 +5,7 @@ import { ApiStatusCodes, ResponseMessages } from "../enums/app.enums.js";
 import { comparePassword } from "../utils/app.utils.js";
 import { generateToken } from "../middlewares/auth.js";
 import Case from "../models/case-model.js";
+import Undertrial from "../models/under-trail-prisoner.js";
 import Precedent from "../models/precedents-model.js";
 
 export const loginLawyerService = async (email_id, password) => {
@@ -85,6 +86,7 @@ export const getLawyerByIdService = async (id) => {
   try {
     // Find the lawyer by ID
     const lawyer = await Lawyer.findById(id);
+    console.log(lawyer);
 
     if (!lawyer) {
       return {
@@ -118,10 +120,9 @@ export const getCasesByLawyerIdService = async (lawyerId) => {
       };
     }
 
-    const lawyer = await Lawyer.findById(lawyerId).populate("cases_handled");
+    const lawyer = await Lawyer.findById(lawyerId);
 
     if (!lawyer) {
-      console.log("Lawyer not found");
       return {
         status_code: ApiStatusCodes.DATA_NOT_FOUND,
         data: null,
@@ -137,13 +138,19 @@ export const getCasesByLawyerIdService = async (lawyerId) => {
       };
     }
 
+    // Extract ObjectIds from cases_handled array
+    const caseIds = lawyer.cases_handled.map((caseId) => caseId.toString());
+
+    // Query UndertrialPrisoner with the extracted ObjectIds
+    const cases = await Undertrial.find({ _id: { $in: caseIds } });
+
     return {
       status_code: ApiStatusCodes.OK,
-      data: lawyer.cases_handled,
+      data: cases,
       message: "Cases retrieved successfully",
     };
   } catch (err) {
-    console.error("Error fetching lawyer:", err.message);
+    console.error("Error fetching cases:", err.message);
     return {
       status_code: ApiStatusCodes.INTERNAL_SERVER_ERROR,
       data: null,
@@ -152,7 +159,7 @@ export const getCasesByLawyerIdService = async (lawyerId) => {
   }
 };
 
-// Service function to get all precedents used by a specific lawyer
+/** Service function to get all precedents used by a specific lawyer */
 export const getPrecedentsByLawyerIdService = async (lawyerId) => {
   try {
     if (!mongoose.Types.ObjectId.isValid(lawyerId)) {
@@ -163,7 +170,12 @@ export const getPrecedentsByLawyerIdService = async (lawyerId) => {
       };
     }
 
-    const lawyer = await Lawyer.findById(lawyerId).populate("precedents_used");
+    // Find the lawyer by ID and populate the precedents_used field with full Precedent documents
+    const lawyer = await Lawyer.findById(lawyerId).populate({
+      path: "precedents_used",
+      model: Precedent, // Populate with the Precedent model
+      select: "title description dateSet caseReference", // Select relevant fields from Precedent
+    });
 
     if (!lawyer || !lawyer.precedents_used.length) {
       return {
@@ -258,6 +270,81 @@ export const getCourtAppearancesService = async (lawyerId) => {
       message: "Court appearances retrieved successfully",
     };
   } catch (err) {
+    return {
+      status_code: ApiStatusCodes.INTERNAL_SERVER_ERROR,
+      data: null,
+      message: err.message,
+    };
+  }
+};
+
+/** Service function to create a new precedent and associate it with a specific lawyer */
+export const addPrecedentToLawyerService = async (lawyerId, precedentData) => {
+  try {
+    // Find the lawyer by ID
+    const lawyer = await Lawyer.findById(lawyerId);
+    if (!lawyer) {
+      return {
+        status_code: ApiStatusCodes.DATA_NOT_FOUND,
+        data: null,
+        message: "Lawyer not found",
+      };
+    }
+
+    // Create a new precedent
+    const newPrecedent = new Precedent(precedentData);
+    await newPrecedent.save();
+
+    // Add the new precedent's ID to the lawyer's precedents_used array
+    lawyer.precedents_used.push(newPrecedent._id);
+    await lawyer.save();
+
+    return {
+      status_code: ApiStatusCodes.OK,
+      data: newPrecedent,
+      message: "Precedent created and added to lawyer successfully",
+    };
+  } catch (err) {
+    return {
+      status_code: ApiStatusCodes.INTERNAL_SERVER_ERROR,
+      data: null,
+      message: err.message,
+    };
+  }
+};
+/** Service function to add a new client meeting to a lawyer's schedule */
+export const addClientMeetingService = async (lawyerId, meetingData) => {
+  try {
+    // Validate the Lawyer ID
+    if (!mongoose.Types.ObjectId.isValid(lawyerId)) {
+      return {
+        status_code: ApiStatusCodes.BAD_REQUEST,
+        data: null,
+        message: "Invalid Lawyer ID format",
+      };
+    }
+
+    // Find the lawyer by ID
+    const lawyer = await Lawyer.findById(lawyerId);
+    if (!lawyer) {
+      return {
+        status_code: ApiStatusCodes.DATA_NOT_FOUND,
+        data: null,
+        message: "Lawyer not found",
+      };
+    }
+
+    // Add the new meeting to the lawyer's meetings_scheduled array
+    lawyer.meetings_scheduled.push(meetingData);
+    await lawyer.save();
+
+    return {
+      status_code: ApiStatusCodes.OK,
+      data: lawyer.meetings_scheduled,
+      message: "Client meeting added successfully",
+    };
+  } catch (err) {
+    console.error("Error adding client meeting:", err);
     return {
       status_code: ApiStatusCodes.INTERNAL_SERVER_ERROR,
       data: null,

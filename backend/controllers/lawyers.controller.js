@@ -6,6 +6,8 @@ import {
   getPrecedentsByLawyerIdService,
   getClientMeetingsService,
   getCourtAppearancesService,
+  addPrecedentToLawyerService,
+  addClientMeetingService,
 } from "../services/lawyer.service.js";
 import { responseFormatter } from "../utils/app.utils.js";
 import { ApiStatusCodes, ResponseMessages } from "../enums/app.enums.js";
@@ -438,5 +440,111 @@ export const getCourtAppearancesController = async (req, res) => {
           err.message
         )
       );
+  }
+};
+/** Controller function to handle adding a new precedent to a lawyer */
+export const addPrecedentToLawyer = async (req, res) => {
+  try {
+    const { lawyerId, precedent } = req.body;
+
+    // Call the service function to add the precedent
+    const result = await addPrecedentToLawyerService(lawyerId, precedent);
+
+    // Return the appropriate response based on the result from the service
+    switch (result.status_code) {
+      case ApiStatusCodes.OK:
+        return res.status(ApiStatusCodes.OK).json({
+          message: result.message,
+          data: result.data,
+        });
+      case ApiStatusCodes.BAD_REQUEST:
+        return res.status(ApiStatusCodes.BAD_REQUEST).json({
+          message: result.message,
+        });
+      case ApiStatusCodes.DATA_NOT_FOUND:
+        return res.status(ApiStatusCodes.NOT_FOUND).json({
+          message: result.message,
+        });
+      case ApiStatusCodes.INTERNAL_SERVER_ERROR:
+        return res.status(ApiStatusCodes.INTERNAL_SERVER_ERROR).json({
+          message: result.message,
+        });
+      default:
+        return res.status(ApiStatusCodes.INTERNAL_SERVER_ERROR).json({
+          message: "An unexpected error occurred",
+        });
+    }
+  } catch (err) {
+    res.status(ApiStatusCodes.INTERNAL_SERVER_ERROR).json({
+      message: "Server error",
+      error: err.message,
+    });
+  }
+};
+/** Controller function to handle adding a new client meeting */
+export const addClientMeetingController = async (req, res) => {
+  try {
+    const { lawyerId, meeting } = req.body;
+
+    if (!lawyerId || !meeting) {
+      return res.json(
+        responseFormatter(
+          ApiStatusCodes.BAD_REQUEST,
+          false,
+          null,
+          "Lawyer ID or meeting data not provided"
+        )
+      );
+    }
+
+    const meetingResponse = await addClientMeetingService(lawyerId, meeting);
+
+    switch (meetingResponse.status_code) {
+      case ApiStatusCodes.OK:
+        return res.json(
+          responseFormatter(
+            ApiStatusCodes.OK,
+            true,
+            meetingResponse.data,
+            "Client meeting added successfully"
+          )
+        );
+      case ApiStatusCodes.BAD_REQUEST:
+        return res.json(
+          responseFormatter(
+            ApiStatusCodes.BAD_REQUEST,
+            false,
+            null,
+            meetingResponse.message
+          )
+        );
+      case ApiStatusCodes.DATA_NOT_FOUND:
+        return res.json(
+          responseFormatter(
+            ApiStatusCodes.DATA_NOT_FOUND,
+            false,
+            null,
+            meetingResponse.message
+          )
+        );
+      default:
+        return res.json(
+          responseFormatter(
+            ApiStatusCodes.INTERNAL_SERVER_ERROR,
+            false,
+            null,
+            "Internal server error"
+          )
+        );
+    }
+  } catch (error) {
+    return res.json(
+      responseFormatter(
+        ApiStatusCodes.INTERNAL_SERVER_ERROR,
+        false,
+        null,
+        error.message
+      )
+    );
   }
 };

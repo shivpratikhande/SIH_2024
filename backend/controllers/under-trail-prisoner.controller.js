@@ -39,15 +39,13 @@ export const loginUndertrialController = async (req, res) => {
 
     switch (undertrialLoginResponse.status_code) {
       case ApiStatusCodes.OK:
-
-      const token = generateToken({ email_id });
-      res.cookie('authToken', token, {
-        httpOnly: true,
-        secure: false,
-        sameSite: 'Lax',
-        maxAge: 86400000,
-      });
-
+        const token = generateToken({ email_id });
+        res.cookie("authToken", token, {
+          httpOnly: true,
+          secure: false,
+          sameSite: "Lax",
+          maxAge: 86400000,
+        });
 
         res.json(
           responseFormatter(
@@ -160,10 +158,17 @@ export const getPrisonerByNameController = async (req, res) => {
     if (!_id) {
       return res
         .status(ApiStatusCodes.BAD_REQUEST)
-        .json(responseFormatter(ApiStatusCodes.BAD_REQUEST, false, null, "Prisoner name not provided"));
+        .json(
+          responseFormatter(
+            ApiStatusCodes.BAD_REQUEST,
+            false,
+            null,
+            "Prisoner name not provided"
+          )
+        );
     }
     const result = await getPrisonerByNameService(_id);
-    
+
     switch (result.status_code) {
       case ApiStatusCodes.OK:
         return res
