@@ -111,7 +111,6 @@ export const getLawyerByIdService = async (id) => {
   }
 };
 
-
 export const getCasesByLawyerIdService = async (lawyerId) => {
   try {
     if (!mongoose.Types.ObjectId.isValid(lawyerId)) {
@@ -145,7 +144,7 @@ export const getCasesByLawyerIdService = async (lawyerId) => {
 
     // Query UndertrialPrisoner with the extracted ObjectIds
     const cases = await Undertrial.find({ _id: { $in: caseIds } });
-
+    console.log(cases);
 
     return {
       status_code: ApiStatusCodes.OK,

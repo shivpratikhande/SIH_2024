@@ -67,4 +67,11 @@ router.post(
   UnderTrailPrisonerController.getCasesByPrisonerIdController
 );
 
+// Route to verify token
+router.post(
+  "/verifyToken",
+  jwtAuthMiddleware,
+  UnderTrailPrisonerController.verifyTokenController
+);
+
 export default router;
