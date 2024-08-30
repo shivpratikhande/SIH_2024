@@ -1,6 +1,6 @@
 // src/components/Dashboard.jsx
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ApplicationAssistance from '../Pages/ApplicationAss';
 import BailEligibility from '../Pages/BailEligibility';
@@ -13,12 +13,23 @@ import ProfileBox from './ProfileBox'; // Import ProfileBox
 import Sidebar from './Sidebar'; // Import the updated Sidebar component
 import PrisonerFaceRecognition from '../Pages/PrisonerFaceRecognition';
 import DocumentUpload from '../Pages/DocumentUpload';
+import axios from 'axios';
 
 const Dashboard = () => {
   const [activeComponent, setActiveComponent] = useState('BailEligibility');
   const [showProfile, setShowProfile] = useState(false); // State for profile visibility
   const navigate = useNavigate();
-
+  const token=localStorage.getItem('token')
+  if(!token) navigate('/')
+  useEffect(()=>{
+    const verify=async()=>{ 
+      const response = await axios.post(`http://127.0.0.1:3000/prisoner/verifyToken`, {
+        credentials:true
+      });
+      console.log(response)
+    }
+      verify()
+  })
   const handleProfileClick = () => {
     setShowProfile(true);
   };

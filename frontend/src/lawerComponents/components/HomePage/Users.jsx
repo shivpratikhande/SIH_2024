@@ -104,16 +104,37 @@ const LoginModal = ({ title, onClose, apiEndPoint, navi }) => {
       if (response.data.status_code === 200) {
         const userData = response; // Adjust based on your response
         setUserData(userData); // Update Zustand store
-        console.log("her")
+        // console.log("her")
         console.log(userData)
+        console.log(title)
+        if(title=="utp Login"){
+          const utp = response.data.data.undertrial._id; 
+          console.log(utp)
+  
+          if (utp) {
+            localStorage.setItem('id', utp);
+          }
 
-        const lawyerId = response.data.data.lawyer._id; 
-        console.log(lawyerId)
-
-        if (lawyerId) {
-          localStorage.setItem('lawyerId', lawyerId);
         }
+        if(title=="Lawyer Login"){
 
+          const lawyerId = response.data.data.lawyer._id; 
+          console.log(lawyerId)
+  
+          if (lawyerId) {
+            localStorage.setItem('id', lawyerId);
+          }
+        }
+        if(title=="Judge Login"){
+          const Id = response.data.data.judge._id; 
+          console.log(Id)
+  
+          if (Id) {
+            localStorage.setItem('id', Id);
+          }
+
+        }
+        localStorage.setItem('token', response.data.data.token);
         alert('Login successful!');
         onClose();
         navigate(navi);

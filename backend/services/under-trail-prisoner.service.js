@@ -5,7 +5,7 @@ import { generateToken } from "../middlewares/auth.js";
 import { comparePassword } from "../utils/app.utils.js";
 import { mongoose } from "mongoose";
 import Case from "../models/case-model.js";
-import { Prioritize } from "cloudflare/resources/custom-certificates/prioritize.mjs";
+// import { Prioritize } from "cloudflare/resources/custom-certificates/prioritize.mjs";
 
 export const loginUndertrialService = async (email_id, password) => {
   try {
@@ -214,17 +214,17 @@ export const uploadDocumentService = async (file, prisonerId) => {
 export const getCasesByPrisonerIdService = async (prisonerId) => {
   try {
     // Validate the prisonerId format (optional)
-    if (!mongoose.Types.ObjectId.isValid(prisonerId)) {
-      return {
-        status_code: ApiStatusCodes.BAD_REQUEST,
-        data: null,
-        message: "Invalid prisoner ID format",
-      };
-    }
+    // if (!mongoose.Types.ObjectId.isValid(prisonerId)) {
+    //   return {
+    //     status_code: ApiStatusCodes.BAD_REQUEST,
+    //     data: null,
+    //     message: "Invalid prisoner ID format",
+    //   };
+    // }
 
     console.log(prisonerId);
     // Find the case based on the prisonerId
-    const cases = await Case.findOne({ prisonerId: prisonerId });
+    const cases = await Case.findOne({ prisonerId: new mongoose.Types.ObjectId(prisonerId) });
     console.log(cases);
 
     // Check if any cases were found
