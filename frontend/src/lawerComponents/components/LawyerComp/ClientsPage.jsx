@@ -5,7 +5,7 @@ import axios from 'axios';
 const Clients = () => {
   // Sample data for clients
 
-  const[clients, setClients] = useState([])
+  const [clients, setClients] = useState([])
 
   /* const clientsData = [
     { id: 1, clientName: 'John Doe', caseId: 'Case #12345', caseDescription: 'Contract dispute', status: 'Active', email: 'john.doe@example.com', phone: '+1234567890', address: '123 Elm Street, Springfield' },
@@ -48,37 +48,8 @@ const Clients = () => {
         const response = await axios.post('http://localhost:3000/lawyer/cases', { lawyerId }, {
           withCredentials: true
         });
-/* console.log(response)
- *//* console.log(response.data.data)
- */        if (response.data.status && response.data.data) {
-          const clientIds = response.data.data;
-          console.log(clientIds)
-          console.log(clientIds)
+        setClients(response)
 
-
-
-          // Fetch detailed information for each client
-          const clientDetailsPromises = clientIds.map(id => 
-            axios.post(`http://localhost:3000/prisoner/getPrisonerDetailsByName`,{_id: `${id}` }, { withCredentials: true })
-          
-          );
-          const triL = clientIds.map(id => 
-            console.log(id )
-            
-          );
-          console.log("cle")
-
-          // Wait for all requests to complete
-          const clientDetailsResponses = await Promise.all(clientDetailsPromises);
-
-          // Extract data from responses
-          const clientsData = clientDetailsResponses.map(res => res.data);
-
-          setClients(clientsData)
-
-        } else {
-          console.error('Error fetching client IDs:', response.data.message);
-        }
       } catch (error) {
         console.error('Error fetching clients:', error);
       }
@@ -87,7 +58,6 @@ const Clients = () => {
     fetchClients();
   }, [setClients]);
 
-  console.log(clients)
 
   return (
     <div className="p-6 max-w-5xl mx-auto">
@@ -132,7 +102,7 @@ const Clients = () => {
             <p className="text-gray-600 text-left"><span className="font-medium">Address:</span> {client.address}</p>
           </div>
         ))}
-         {/* {clients.map((client) => (
+        {/* {clients.map((client) => (
               <tr key={client.id}>
                 <td className="border px-4 py-2">{client.data.name}</td>
                 <td className="border px-4 py-2">{client.data.case_id}</td>
