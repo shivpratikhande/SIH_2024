@@ -542,3 +542,10 @@ export const getCasesByPrisonerIdController = async (req, res) => {
     });
   }
 };
+export const verifyTokenController = (req, res) => {
+  // If the middleware passes, the token is valid
+  res.status(200).json({
+    message: "Token is valid",
+    user: req.user, // The decoded user information from the token
+  });
+};
