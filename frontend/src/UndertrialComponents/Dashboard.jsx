@@ -13,6 +13,7 @@ import ProfileBox from './ProfileBox'; // Import ProfileBox
 import Sidebar from './Sidebar'; // Import the updated Sidebar component
 import PrisonerFaceRecognition from '../Pages/PrisonerFaceRecognition';
 import DocumentUpload from '../Pages/DocumentUpload';
+import LegalQuery from '../Pages/LegalQuery';
 
 const Dashboard = () => {
   const [activeComponent, setActiveComponent] = useState('BailEligibility');
@@ -52,6 +53,8 @@ const Dashboard = () => {
         return <PrisonerFaceRecognition />;
       case 'ChooseLawyer':
         return <ChooseLawyer />;
+      case 'LegalQuery':
+        return <LegalQuery />;
       default:
         return <BailEligibility />;
     }
