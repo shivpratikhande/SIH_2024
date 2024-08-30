@@ -53,14 +53,17 @@ const Clients = () => {
  */        if (response.data.status && response.data.data) {
           const clientIds = response.data.data;
           console.log(clientIds)
+          console.log(clientIds)
+
+
 
           // Fetch detailed information for each client
           const clientDetailsPromises = clientIds.map(id => 
-            axios.post(`http://localhost:3000/prisoner/getPrisonerDetailsByName`,{_id: "66c9913f6cdba09d94e14405" }, { withCredentials: true })
+            axios.post(`http://localhost:3000/prisoner/getPrisonerDetailsByName`,{_id: `${id}` }, { withCredentials: true })
           
           );
           const triL = clientIds.map(id => 
-            console.log(`${id}` )
+            console.log(id )
             
           );
           console.log("cle")

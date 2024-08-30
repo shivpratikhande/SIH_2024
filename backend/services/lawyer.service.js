@@ -6,6 +6,7 @@ import { comparePassword } from "../utils/app.utils.js";
 import { generateToken } from "../middlewares/auth.js";
 import Case from "../models/case-model.js";
 import Precedent from "../models/precedents-model.js";
+import UndertrialPrisoner from "../models/under-trail-prisoner.js";
 
 export const loginLawyerService = async (email_id, password) => {
   try {
@@ -81,32 +82,6 @@ export const getAllLawyersService = async () => {
 };
 
 /** Service to retrieve a Lawyer by ID */
-export const getLawyerByIdService = async (id) => {
-  try {
-    // Find the lawyer by ID
-    const lawyer = await Lawyer.findById(id);
-
-    if (!lawyer) {
-      return {
-        status_code: ApiStatusCodes.DATA_NOT_FOUND,
-        data: null,
-        message: "Lawyer not found",
-      };
-    }
-
-    return {
-      status_code: ApiStatusCodes.OK,
-      data: lawyer,
-      message: "Lawyer retrieved successfully",
-    };
-  } catch (err) {
-    return {
-      status_code: ApiStatusCodes.INTERNAL_SERVER_ERROR,
-      data: null,
-      message: err.message,
-    };
-  }
-};
 
 export const getCasesByLawyerIdService = async (lawyerId) => {
   try {
@@ -118,10 +93,9 @@ export const getCasesByLawyerIdService = async (lawyerId) => {
       };
     }
 
-    const lawyer = await Lawyer.findById(lawyerId).populate("cases_handled");
+    const lawyer = await Lawyer.findById(lawyerId);
 
     if (!lawyer) {
-      console.log("Lawyer not found");
       return {
         status_code: ApiStatusCodes.DATA_NOT_FOUND,
         data: null,
@@ -137,13 +111,19 @@ export const getCasesByLawyerIdService = async (lawyerId) => {
       };
     }
 
+    // Extract ObjectIds from cases_handled array
+    const caseIds = lawyer.cases_handled.map((caseId) => caseId.toString());
+
+    // Query UndertrialPrisoner with the extracted ObjectIds
+    const cases = await UndertrialPrisoner.find({ _id: { $in: caseIds } });
+
     return {
       status_code: ApiStatusCodes.OK,
-      data: lawyer.cases_handled,
+      data: cases,
       message: "Cases retrieved successfully",
     };
   } catch (err) {
-    console.error("Error fetching lawyer:", err.message);
+    console.error("Error fetching cases:", err.message);
     return {
       status_code: ApiStatusCodes.INTERNAL_SERVER_ERROR,
       data: null,
