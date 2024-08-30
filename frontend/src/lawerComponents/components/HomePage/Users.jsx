@@ -102,9 +102,17 @@ const LoginModal = ({ title, onClose, apiEndPoint, navi }) => {
       console.log(apiEndPoint)
 
       if (response.data.status_code === 200) {
-        const userData = response.data.data; // Adjust based on your response
+        const userData = response; // Adjust based on your response
         setUserData(userData); // Update Zustand store
         console.log("her")
+        console.log(userData)
+
+        const lawyerId = response.data.data.lawyer._id; 
+        console.log(lawyerId)
+
+        if (lawyerId) {
+          localStorage.setItem('lawyerId', lawyerId);
+        }
 
         alert('Login successful!');
         onClose();

@@ -3,21 +3,42 @@ import { FaSearch } from 'react-icons/fa';
 import axios from 'axios';
 
 const Clients = () => {
-  // Sample data for clients
-
-  const [clients, setClients] = useState([])
-
-  /* const clientsData = [
-    { id: 1, clientName: 'John Doe', caseId: 'Case #12345', caseDescription: 'Contract dispute', status: 'Active', email: 'john.doe@example.com', phone: '+1234567890', address: '123 Elm Street, Springfield' },
-    { id: 2, clientName: 'Jane Smith', caseId: 'Case #67890', caseDescription: 'Personal injury', status: 'Closed', email: 'jane.smith@example.com', phone: '+0987654321', address: '456 Oak Avenue, Springfield' },
-    { id: 3, clientName: 'Alice Johnson', caseId: 'Case #24680', caseDescription: 'Divorce settlement', status: 'Active', email: 'alice.johnson@example.com', phone: '+1122334455', address: '789 Maple Lane, Springfield' },
-    { id: 4, clientName: 'Robert Brown', caseId: 'Case #13579', caseDescription: 'Property dispute', status: 'Active', email: 'robert.brown@example.com', phone: '+2233445566', address: '321 Pine Street, Springfield' },
-    { id: 5, clientName: 'Emily Davis', caseId: 'Case #24681', caseDescription: 'Business litigation', status: 'Pending', email: 'emily.davis@example.com', phone: '+3344556677', address: '654 Cedar Road, Springfield' },
-  ]; */
-
-  // State for search input and filtered clients
+  // State for clients and search functionality
+  const [clients, setClients] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
-  const [filteredClients, setFilteredClients] = useState(clients);
+  const [filteredClients, setFilteredClients] = useState([]);
+
+  // Fetch clients data from the server
+  useEffect(() => {
+    const fetchClients = async () => {
+      const lawyerId = localStorage.getItem('lawyerId');
+  
+      if (!lawyerId) {
+        console.error('Lawyer ID not found');
+        return; // Exit if no lawyer ID
+      }
+  
+      try {
+        // Fetch client data
+        const response = await axios.post('http://localhost:3000/lawyer/cases', { lawyerId }, {
+          withCredentials: true
+        });
+  
+        // Check response status code
+        if (response.data.status_code === 200 && Array.isArray(response.data.data)) {
+          setClients(response.data.data); // Use response.data.data which is an array
+          setFilteredClients(response.data.data); // Set filteredClients as well
+        } else {
+          console.error('Unexpected data format:', response.data);
+        }
+      } catch (error) {
+        console.error('Error fetching clients:', error);
+      }
+    };
+  
+    fetchClients();
+  }, []);
+  
 
   // Handle search input change
   const handleSearchChange = (event) => {
@@ -33,31 +54,6 @@ const Clients = () => {
       )
     );
   };
-
-  useEffect(() => {
-    const fetchClients = async () => {
-      const lawyerId = localStorage.getItem('lawyerId');
-
-      if (!lawyerId) {
-        console.error('Lawyer ID not found');
-        return; // Exit if no lawyer ID
-      }
-
-      try {
-        // Fetch client IDs
-        const response = await axios.post('http://localhost:3000/lawyer/cases', { lawyerId }, {
-          withCredentials: true
-        });
-        setClients(response)
-
-      } catch (error) {
-        console.error('Error fetching clients:', error);
-      }
-    };
-
-    fetchClients();
-  }, [setClients]);
-
 
   return (
     <div className="p-6 max-w-5xl mx-auto">
@@ -89,28 +85,19 @@ const Clients = () => {
 
       {/* Client Cards */}
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {clients.map(client => (
+        {filteredClients.map(client => (
           <div key={client.id} className="bg-white shadow-md rounded-lg p-4 flex flex-col transition-transform transform hover:scale-105 hover:shadow-lg">
             <h2 className="text-xl font-semibold mb-2 text-left">{client.data.name}</h2>
             <p className="text-gray-700 mb-1 text-left"><span className="font-medium">Case ID:</span> {client.data.case_id}</p>
-            <p className="text-gray-700 mb-1 text-left"><span className="font-medium">Case Description:</span> {client.caseDescription}</p>
-            <p className={`text-sm mb-2 text-left ${client.status === 'Active' ? 'text-green-500' : client.status === 'Closed' ? 'text-red-500' : 'text-yellow-500'}`}>
-              <span className="font-medium">Status:</span> {client.status}
+            <p className="text-gray-700 mb-1 text-left"><span className="font-medium">Case Description:</span> {client.data.caseDescription}</p>
+            <p className={`text-sm mb-2 text-left ${client.data.status === 'Active' ? 'text-green-500' : client.data.status === 'Closed' ? 'text-red-500' : 'text-yellow-500'}`}>
+              <span className="font-medium">Status:</span> {client.data.status}
             </p>
             <p className="text-gray-600 mb-1 text-left"><span className="font-medium">Email:</span> {client.data.email_id}</p>
-            <p className="text-gray-600 mb-1 text-left"><span className="font-medium">Phone:</span> {client.phone}</p>
-            <p className="text-gray-600 text-left"><span className="font-medium">Address:</span> {client.address}</p>
+            <p className="text-gray-600 mb-1 text-left"><span className="font-medium">Phone:</span> {client.data.phone}</p>
+            <p className="text-gray-600 text-left"><span className="font-medium">Address:</span> {client.data.address}</p>
           </div>
         ))}
-        {/* {clients.map((client) => (
-              <tr key={client.id}>
-                <td className="border px-4 py-2">{client.data.name}</td>
-                <td className="border px-4 py-2">{client.data.case_id}</td>
-                <td className={`border px-4 py-2 ${client.status === 'Active' ? 'text-green-500' : 'text-red-500'}`}>
-                  {client.status}
-                </td>
-              </tr>
-            ))} */}
       </div>
     </div>
   );
