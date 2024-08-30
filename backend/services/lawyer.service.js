@@ -7,6 +7,7 @@ import { generateToken } from "../middlewares/auth.js";
 import Case from "../models/case-model.js";
 import Undertrial from "../models/under-trail-prisoner.js";
 import Precedent from "../models/precedents-model.js";
+import UndertrialPrisoner from "../models/under-trail-prisoner.js";
 
 export const loginLawyerService = async (email_id, password) => {
   try {
@@ -110,6 +111,7 @@ export const getLawyerByIdService = async (id) => {
   }
 };
 
+
 export const getCasesByLawyerIdService = async (lawyerId) => {
   try {
     if (!mongoose.Types.ObjectId.isValid(lawyerId)) {
@@ -143,6 +145,7 @@ export const getCasesByLawyerIdService = async (lawyerId) => {
 
     // Query UndertrialPrisoner with the extracted ObjectIds
     const cases = await Undertrial.find({ _id: { $in: caseIds } });
+
 
     return {
       status_code: ApiStatusCodes.OK,
