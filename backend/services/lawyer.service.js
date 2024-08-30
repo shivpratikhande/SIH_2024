@@ -225,9 +225,9 @@ export const getClientMeetingsService = async (lawyerId) => {
       };
     }
 
-    // Transform meeting data to include only relevant details
     const meetingData = lawyer.meetings_scheduled.map((meeting) => ({
-      clientId: meeting.client,
+      meeting_id: meeting._id, // Use the unique ID of the meeting
+      client_name: meeting.client_name, // Extract the client_name from the meeting data
       meetingDate: meeting.meetingDate,
       location: meeting.location,
       purpose: meeting.purpose,

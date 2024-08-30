@@ -38,7 +38,7 @@ router.post(
   UnderTrailPrisonerController.getPrisonerFamilyBackgroundController
 );
 
-// Route to upload all the documents specified by the Judge //
+// Route to upload a single document specified by the Lawyer //
 router.post(
   "/uploadDocument",
   upload.single("document"),

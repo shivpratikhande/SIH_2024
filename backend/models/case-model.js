@@ -10,6 +10,18 @@ const caseSchema = new mongoose.Schema({
     ref: "UndertrialPrisoner", // Reference to the UndertrialPrisoner model
     // required: true,
   },
+  address: {
+    type: String,
+    required: true,
+  },
+  phone_no: {
+    type: Number,
+    required: true,
+  },
+  status: {
+    type: Boolean,
+    required: true,
+  },
   title: {
     type: String,
     required: true,
