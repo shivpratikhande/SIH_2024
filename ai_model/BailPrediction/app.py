@@ -1,7 +1,9 @@
-from flask import Flask, request, jsonify, send_from_directory
+from flask import Flask, request, jsonify, make_response
+from flask_cors import CORS
 import json
 
 app = Flask(__name__)
+CORS(app)
 
 # Load the JSON data
 with open('Laws.json') as laws_file:
@@ -10,9 +12,12 @@ with open('Laws.json') as laws_file:
 with open('Offences.json') as offenses_file:
     offenses_data = json.load(offenses_file)
 
-@app.route('/get_info', methods=['GET'])
+@app.route('/get_info', methods=['POST'])
 def get_info():
-    offenses_list = request.args.get('offenses')
+    print("yayay")
+    data = request.json
+    offenses_list = data.get('offenses')
+    print(offenses_list)
     
     if not offenses_list:
         return jsonify({"error": "No offenses provided"}), 400
@@ -54,11 +59,9 @@ def get_info():
         
         results.append(result)
     
-    return jsonify(results)
-
-@app.route('/')
-def index():
-    return send_from_directory('.', 'index.html')
+    response = make_response(jsonify({"data": results}))
+    response.headers['Content-Type'] = 'application/json'
+    return response
 
 if __name__ == '__main__':
     app.run(debug=True)

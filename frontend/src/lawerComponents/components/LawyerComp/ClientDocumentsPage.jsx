@@ -58,7 +58,7 @@ const ClientDocuments = () => {
 
   useEffect(() => {
     const fetchClients = async () => {
-      const lawyerId = localStorage.getItem('lawyerId');
+      const lawyerId = localStorage.getItem('id');
 
       if (!lawyerId) {
         console.error('Lawyer ID not found');
