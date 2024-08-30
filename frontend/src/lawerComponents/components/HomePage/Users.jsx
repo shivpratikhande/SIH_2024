@@ -1,26 +1,21 @@
 import React, { useState } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { FaLeaf } from 'react-icons/fa';
+import useUserStore from "../../../stores"
 
 const InfoSections = ({ id }) => {
   const navigate = useNavigate();
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [modalContent, setModalContent] = useState('');
-  const [apiEndPoint, setApiEndPoint] = useState('')
-  const [navi, setNavi] = useState("")
-
-  console.log(apiEndPoint)
+  const [apiEndPoint, setApiEndPoint] = useState('');
+  const [navi, setNavi] = useState('');
 
   const handleClick = (value, apiEndPoint, navi) => {
     setModalContent(value);
     setShowLoginModal(true);
-    setApiEndPoint(apiEndPoint)
-    setNavi(navi)
-    console.log(value)
+    setApiEndPoint(apiEndPoint);
+    setNavi(navi);
   };
-
-
 
   const handleCloseModal = () => {
     setShowLoginModal(false);
@@ -35,17 +30,13 @@ const InfoSections = ({ id }) => {
         <Card
           img="https://img.freepik.com/free-vector/man-red-shirt-with-white-collar_90220-2873.jpg?t=st=1724425136~exp=1724428736~hmac=5c5bc0132c7b8e515aeeb33d97d298bbd9192991d5e57ed9a7380e2e4667007f&w=740"
           name="Undertrial Prisoners"
-          onClick={() => handleClick("utp", "http://localhost:3000/prisoner/login"
-          )}
+          onClick={() => handleClick("utp", "http://localhost:3000/prisoner/login")}
         />
-
-
         <Card
           img="https://img.freepik.com/premium-vector/blue-gold-sign-that-says-symbol-justice_1205884-833.jpg?w=740"
           name="Lawyers"
           onClick={() => handleClick("Lawyer", "http://localhost:3000/lawyer/login")}
         />
-
         <Card
           img="https://img.freepik.com/free-photo/closeup-gavel-judgement-concept_53876-31913.jpg?uid=R91335437&ga=GA1.1.651042858.1721845919&semt=ais_hybrid"
           name="Judges"
@@ -53,7 +44,6 @@ const InfoSections = ({ id }) => {
         />
       </div>
 
-      {/* Render the login modal conditionally */}
       {showLoginModal && (
         <LoginModal
           title={`${modalContent} Login`}
@@ -67,7 +57,6 @@ const InfoSections = ({ id }) => {
 };
 
 const Card = ({ img, name, onClick }) => {
-
   return (
     <div
       className="flex-1 bg-[#03346E] text-white flex flex-col items-center justify-center h-96 transition duration-300 ease-in-out hover:scale-105 rounded-xl cursor-pointer"
@@ -91,6 +80,7 @@ const Card = ({ img, name, onClick }) => {
 
 const LoginModal = ({ title, onClose, apiEndPoint, navi }) => {
   const navigate = useNavigate();
+  const setUserData = useUserStore((state) => state.setUserData);
 
   const [email_id, setEmail_id] = useState('');
   const [password, setPassword] = useState('');
@@ -98,40 +88,34 @@ const LoginModal = ({ title, onClose, apiEndPoint, navi }) => {
 
   const handleLogin = async (event) => {
     event.preventDefault();
-
     setErrorMessage('');
-    console.log("handle login")
-    console.log(apiEndPoint)
 
     try {
       const response = await axios.post(apiEndPoint, {
         email_id,
-        password
+        password,
       }, {
         withCredentials: true
       });
+      console.log("her")
+      console.log(response)
+      console.log(apiEndPoint)
 
-
-     /*  const lawyerId = response.data.data.lawyer._id;
-      localStorage.setItem('lawyerId', lawyerId); */
-      
       if (response.data.status_code === 200) {
-        console.log(response)
+        const userData = response.data.data; // Adjust based on your response
+        setUserData(userData); // Update Zustand store
+        console.log("her")
 
         alert('Login successful!');
         onClose();
-        navigate(navi)
-
+        navigate(navi);
       } else {
         setErrorMessage('Invalid username or password');
       }
     } catch (error) {
-      // Handle errors from the API
       console.error('Login error:', error);
       setErrorMessage('An error occurred during login');
     }
-    console.log(email_id)
-
   };
 
   return (
@@ -156,11 +140,7 @@ const LoginModal = ({ title, onClose, apiEndPoint, navi }) => {
               onChange={(e) => setEmail_id(e.target.value)}
               className="border border-gray-300 p-2 rounded-lg"
               required
-
-
             />
-
-
           </label>
           <label className="flex flex-col">
             <span className="font-semibold">Password:</span>

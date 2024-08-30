@@ -1,16 +1,19 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { DocumentTextIcon, IdentificationIcon, UserCircleIcon, BanknotesIcon, BriefcaseIcon, ClipboardDocumentIcon, EyeIcon } from '@heroicons/react/24/outline'; // Import icons
 import useStore from '../../../userStore';
+import axios from 'axios';
 
 const DocumentDetailModal = ({ client, onClose }) => {
   const [showDocuments, setShowDocuments] = useState(false);
   const { clients } = useStore();
-
-  console.log(clients[0])
+  const [documents, setDocuments] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  console.log(documents)
 
 
   // Dummy document links
-  const documentLinks = {
+  /* const documentLinks = {
     firDocuments: {clients} ,
     policeReport: "https://example.com/police_report.pdf",
     chargeSheet: "https://example.com/charge_sheet.pdf",
@@ -26,11 +29,31 @@ const DocumentDetailModal = ({ client, onClose }) => {
     statementsByAccused: "https://example.com/statements_by_accused.pdf",
     affidavits: "https://example.com/affidavits.pdf",
     summonsWarrants: "https://example.com/summons_warrants.pdf",
-  };
+  }; */
 
   const handleToggleDocuments = () => {
     setShowDocuments(!showDocuments);
   };
+
+  useEffect(() => {
+    const fetchDocuments = async () => {
+      try {
+        const response = await axios.post('http://localhost:3000/prisoner/getDocument',{prisonerId: "66c9913f6cdba09d94e14405"});
+        setDocuments(response.data.documents);
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchDocuments();
+  }, []);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error}</p>;
+
+
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
@@ -85,6 +108,17 @@ const DocumentDetailModal = ({ client, onClose }) => {
                   </a>
                 </li>
               ))}
+
+              <ul>
+                {documents.map(doc => (
+                  <li key={doc._id}>
+                    <p><strong>File Name:</strong> {doc.fileName}</p>
+                    <p><strong>File Path:</strong> {doc.filePath}</p>
+                    <p><strong>Upload Date:</strong> {new Date(doc.uploadDate).toLocaleString()}</p>
+                    <p><strong>ID:</strong> {doc._id}</p>
+                  </li>
+                ))}
+              </ul>
             </ul>
           </div>
         )}

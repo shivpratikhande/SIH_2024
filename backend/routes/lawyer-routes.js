@@ -28,6 +28,23 @@ router.post(
   LawyersController.getPrecedentsByLawyerIdController
 );
 
-router.post("/getAllMeetings", LawyersController.getClientMeetingsController);
+router.post(
+  "/precedents/add",
+  jwtAuthMiddleware,
+
+  LawyersController.addPrecedentToLawyer
+);
+
+router.post(
+  "/getAllMeetings",
+  jwtAuthMiddleware,
+  LawyersController.getClientMeetingsController
+);
+
+router.post(
+  "/addMeetings",
+  jwtAuthMiddleware,
+  LawyersController.addClientMeetingController
+);
 
 export default router;

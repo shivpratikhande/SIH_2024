@@ -4,7 +4,6 @@ import { ApiStatusCodes, ResponseMessages } from "../enums/app.enums.js";
 import { generateToken } from "../middlewares/auth.js";
 import { comparePassword } from "../utils/app.utils.js";
 
-
 export const loginUndertrialService = async (email_id, password) => {
   try {
     // Find the under-trial prisoner by email_id
@@ -78,9 +77,9 @@ export const getAllUnderTrialPrisonersService = async () => {
 };
 
 // Service function to get all details of Prisoner by Name //
-export const getPrisonerByNameService = async (_id) => {
+export const getPrisonerByNameService = async (name) => {
   try {
-    const prisoner = await Undertrial.findById({ _id: _id });
+    const prisoner = await Undertrial.findOne({ name: name });
 
     if (!prisoner) {
       console.log("No prisoner found");
