@@ -12,6 +12,7 @@ import NotificationCenter from '../Pages/Notifications';
 import ProfileBox from './ProfileBox'; // Import ProfileBox
 import Sidebar from './Sidebar'; // Import the updated Sidebar component
 import PrisonerFaceRecognition from '../Pages/PrisonerFaceRecognition';
+import DocumentUpload from '../Pages/DocumentUpload';
 
 const Dashboard = () => {
   const [activeComponent, setActiveComponent] = useState('BailEligibility');
@@ -43,6 +44,8 @@ const Dashboard = () => {
         return <ApplicationAssistance />;
       case 'NotificationCenter':
         return <NotificationCenter />;
+      case 'Documents':
+        return <DocumentUpload />;
       case 'LegalResources':
         return <LegalResources />;
       case 'PrisonerFaceRecognition':
