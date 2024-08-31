@@ -10,7 +10,7 @@ const LawyerSchema = new mongoose.Schema({
   precedents_used: [mongoose.Schema.Types.ObjectId],
   meetings_scheduled: [
     {
-      client: mongoose.Schema.Types.ObjectId,
+      client_name: String,
       meetingDate: Date,
       location: String,
       purpose: String,

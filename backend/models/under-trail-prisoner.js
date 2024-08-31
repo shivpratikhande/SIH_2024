@@ -7,6 +7,19 @@ const UndertrialPrisonerSchema = new mongoose.Schema({
   email_id: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   prison_id: { type: String, required: true },
+  address: {
+    type: String,
+    required: true,
+  },
+  phone_no: {
+    type: Number,
+    required: true,
+  },
+  case_status: {
+    type: Boolean,
+    required: true,
+  },
+
   offense_id: [
     {
       offense_name: { type: String },

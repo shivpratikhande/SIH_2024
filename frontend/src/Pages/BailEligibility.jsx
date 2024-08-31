@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { FaHome, FaLock } from 'react-icons/fa';
+import BailPredictor from '../UndertrialComponents/BailPredictor';
 
 const BailEligibility = () => {
   const [daysRemaining, setDaysRemaining] = useState(100); // Total days remaining
@@ -23,6 +24,8 @@ const BailEligibility = () => {
   }, [daysRemaining, totalDaysElapsed]);
 
   return (
+    <div>
+
     <div className="bg-white border-2 border-primary p-4 rounded-lg shadow-md">
       <h2 className="text-xl font-semibold text-primary mb-4">Bail Eligibility Tracker</h2>
 
@@ -45,7 +48,7 @@ const BailEligibility = () => {
               background: `linear-gradient(to right, #0000FF 0%, #0000FF ${(calculateWeeks(totalDaysElapsed) / calculateWeeks(totalDays)) * 100}%, #e5e7eb ${(calculateWeeks(totalDaysElapsed) / calculateWeeks(totalDays)) * 100}%, #e5e7eb 100%)`
             }}
             readOnly
-          />
+            />
           <FaHome className="text-gray-700 ml-2" size={24} />
         </div>
 
@@ -62,6 +65,9 @@ const BailEligibility = () => {
         </div>
       </div>
     </div>
+      <br/>
+      <BailPredictor/>  
+              </div>
   );
 };
 

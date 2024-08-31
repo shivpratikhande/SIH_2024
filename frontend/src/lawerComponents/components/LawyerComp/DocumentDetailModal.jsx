@@ -13,7 +13,7 @@ const DocumentDetailModal = ({ client, onClose }) => {
 
 
   // Dummy document links
-  /* const documentLinks = {
+  const documentLinks = {
     firDocuments: {clients} ,
     policeReport: "https://example.com/police_report.pdf",
     chargeSheet: "https://example.com/charge_sheet.pdf",
@@ -29,7 +29,7 @@ const DocumentDetailModal = ({ client, onClose }) => {
     statementsByAccused: "https://example.com/statements_by_accused.pdf",
     affidavits: "https://example.com/affidavits.pdf",
     summonsWarrants: "https://example.com/summons_warrants.pdf",
-  }; */
+  };
 
   const handleToggleDocuments = () => {
     setShowDocuments(!showDocuments);
