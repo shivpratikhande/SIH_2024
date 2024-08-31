@@ -13,6 +13,7 @@ import ProfileBox from './ProfileBox'; // Import ProfileBox
 import Sidebar from './Sidebar'; // Import the updated Sidebar component
 import PrisonerFaceRecognition from '../Pages/PrisonerFaceRecognition';
 import DocumentUpload from '../Pages/DocumentUpload';
+import LegalQuery from '../Pages/LegalQuery';
 import axios from 'axios';
 
 const Dashboard = () => {
@@ -63,6 +64,8 @@ const Dashboard = () => {
         return <PrisonerFaceRecognition />;
       case 'ChooseLawyer':
         return <ChooseLawyer />;
+      case 'LegalQuery':
+        return <LegalQuery />;
       default:
         return <BailEligibility />;
     }
