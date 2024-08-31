@@ -11,7 +11,7 @@ const ProfileBox = ({ showProfile, onProfileClick, onCloseProfile }) => {
           onClick={onProfileClick} 
         />
         <div className="flex flex-col text-right">
-          <p className="text-md font-semibold">John Doe</p>
+          <p className="text-md font-semibold">{localStorage.getItem('name')}</p>
           <p className="text-gray-500 text-sm">Lawyer</p>
         </div>
       </div>

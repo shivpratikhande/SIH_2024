@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import lawyers from '../../public/data/lawyers.json'; // Adjust the path if the JSON file is located elsewhere
-
+import {assets} from "../assets/assets.js"
 const ChooseLawyer = () => {
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -16,7 +16,11 @@ const ChooseLawyer = () => {
     lawyer.location.toLowerCase().includes(searchTerm.toLowerCase())
 
   );
-
+  const handleWhatsAppClick = (phoneNumber) => {
+    const formattedNumber = phoneNumber.replace(/\s+/g, '');
+    const whatsappUrl = `https://wa.me/${formattedNumber}`;
+    window.open(whatsappUrl, '_blank');
+  };
   return (
     <div className="bg-white border border-primary p-8 rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300">
       <h2 className="text-3xl font-bold text-primary mb-6">Lawyers</h2>
@@ -49,6 +53,9 @@ const ChooseLawyer = () => {
                 <button className="bg-[#00008B] text-white text-lg px-6 py-2 rounded-full hover:bg-primary-light transition duration-300">
                   Apply
                 </button>
+                <div className="p-3">
+                  <img className='cursor-pointer w-10 h-10 rounded-full border-4 border-gray-300 shadow-lg object-cover' src={assets.wp} alt="Connect with Whatsapp" onClick={() => handleWhatsAppClick(lawyer.contactDetails.phone)} />
+                </div>
               </div>
             </div>
           </li>

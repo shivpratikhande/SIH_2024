@@ -57,7 +57,7 @@ const Navbar = () => {
         <LoginModal
           title={`Visitor Login`}
           onClose={()=>setShowModal(false)}
-          apiEndPoint={""}
+          apiEndPoint={"http://localhost:3000/user/login"}
           navi={`/`}
         />
       )}

@@ -4,7 +4,7 @@
     "experience": "10 years",
     "location": "Mumbai",
     "contactDetails": {
-        "phone": "+91-9876543210",
+        "phone": "917999505967",
         "email": "lawyerA@example.com"
     }
 },
@@ -14,7 +14,7 @@
     "experience": "8 years",
     "location": "Delhi",
     "contactDetails": {
-        "phone": "+91-8765432109",
+        "phone": "918765432109",
         "email": "lawyerB@example.com"
     }
 },

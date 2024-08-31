@@ -5,11 +5,11 @@ const ProfileBox = ({ showProfile, onProfileClick, onCloseProfile }) => {
   return (
     <div className="relative">
       {/* Profile Box */}
-      <div className="bg-white shadow-md rounded-lg p-2 flex items-center justify-between space-x-3">
-        <div className="flex items-center space-x-2 cursor-pointer" onClick={onProfileClick}>
-          <FaUserCircle className="text-gray-600 text-2xl" />
-          <div className="flex flex-col text-left">
-            <p className="text-md font-semibold">John Doe</p>
+      <div className="bg-white shadow-md rounded-lg p-2 flex items-center justify-between space-x-3 w-full">
+        <div className="flex items-center space-x-2 cursor-pointer w-full" onClick={onProfileClick}>
+          <FaUserCircle className="text-gray-600 text-2xl " />
+          <div className="flex flex-col  justify-end">
+            <p className="text-md font-semibold">{localStorage.getItem('name')}</p>
             <p className="text-gray-500 text-sm">Prisoner</p>
           </div>
         </div>
