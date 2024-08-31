@@ -1,8 +1,9 @@
 // src/components/Navbar.js
 import { useState } from 'react';
 import emb from "../../../assets/emb.png"
-
+import LoginModal from '../../../Pages/LoginModal';
 const Navbar = () => {
+  const [showModal, setShowModal]=useState(false)
   return (
     <div>
       <nav className="p-4 bg-white mb-1">
@@ -32,8 +33,8 @@ const Navbar = () => {
 
             {/* Authentication Buttons */}
             <div className="lg:flex lg:items-center lg:space-x-4">
-              <a href="#" className="text-white bg-[#03346E] hover:bg-[#0033A0] px-4 py-2 rounded">Login</a>
-              <a href="#" className="text-white bg-[#03346E] hover:bg-[#0033A0] px-4 py-2 rounded">Register</a>
+              <button onClick={()=>setShowModal(true)} className="text-white bg-[#03346E] hover:bg-[#0033A0] px-4 py-2 rounded">Login</button>
+              <button  className="text-white bg-[#03346E] hover:bg-[#0033A0] px-4 py-2 rounded">Register</button>
             </div>
           </div>
 
@@ -52,10 +53,17 @@ const Navbar = () => {
         </div>
 
       </div>
-
+      {showModal && (
+        <LoginModal
+          title={`Visitor Login`}
+          onClose={()=>setShowModal(false)}
+          apiEndPoint={""}
+          navi={`/`}
+        />
+      )}
     </div>
 
-  );
+  );  
 };
 
 export default Navbar;

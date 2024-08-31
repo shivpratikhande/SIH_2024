@@ -11,4 +11,5 @@ import { jwtAuthMiddleware } from "../middlewares/middleware";
 const router = Router();
 
 /** POST - Route to login user or create new user - login  */
-router.post("/login", UsersController.uaLoginUser);
+router.post("/login", UsersController.visitorLoginService);
+router.post("/signup", UsersController.visitorSignupService);
