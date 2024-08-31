@@ -37,6 +37,7 @@ const LoginModal = ({ title, onClose, apiEndPoint, navi }) => {
     
             if (utp) {
               localStorage.setItem('id', utp);
+              localStorage.setItem('name', response.data.data.undertrial.name);
             }
   
           }
@@ -47,6 +48,8 @@ const LoginModal = ({ title, onClose, apiEndPoint, navi }) => {
     
             if (lawyerId) {
               localStorage.setItem('id', lawyerId);
+              localStorage.setItem('name', response.data.data.lawyer.name);
+
             }
           }
           if(title=="Judge Login"){
@@ -55,8 +58,18 @@ const LoginModal = ({ title, onClose, apiEndPoint, navi }) => {
     
             if (Id) {
               localStorage.setItem('id', Id);
+              localStorage.setItem('name', response.data.data.judge.name);
             }
   
+          }
+          if(title=="Visitor Login"){
+            const Id = response.data.data.user._id; 
+            console.log(Id)
+    
+            if (Id) {
+              localStorage.setItem('id', Id);
+              localStorage.setItem('name', response.data.data.user.name);
+            }
           }
           localStorage.setItem('token', response.data.data.token);
           alert('Login successful!');

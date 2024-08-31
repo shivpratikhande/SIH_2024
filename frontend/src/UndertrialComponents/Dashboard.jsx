@@ -27,6 +27,10 @@ const Dashboard = () => {
         credentials:true
       });
       console.log(response)
+      if(response.data.err){
+        localStorage.removeItem('token')
+        navigate('/')
+      }
     }
       verify()
   })

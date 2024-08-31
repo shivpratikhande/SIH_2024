@@ -13,4 +13,7 @@ const router = Router();
 /** POST - Route to login user or create new user - login  */
 router.post("/login", UsersController.visitorLoginService);
 router.post("/signup", UsersController.visitorSignupService);
+router.post("/createJudge", UsersController.createJudge);
+router.post("/createLawyer", UsersController.createLawyer);
+router.post("/createUtp", UsersController.createUtp);
 export default router;
