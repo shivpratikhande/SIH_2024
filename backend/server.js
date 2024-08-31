@@ -10,7 +10,7 @@ import prisonerRoutes from "./routes/under-trail-prisoner-routes.js";
 import judgeRoutes from "./routes/judge-routes.js";
 import lawyerRoutes from "./routes/lawyer-routes.js";
 import faceRecognitionRoutes from "./routes/faceRecognition-routes.js";
-
+import userRoutes from "./routes/user-routes.js";
 import cookieParser from 'cookie-parser';
 
 dotenv.config();
@@ -32,6 +32,7 @@ app.use("/judge", judgeRoutes);
 app.use("/lawyer", lawyerRoutes);
 app.use("/prisoner", prisonerRoutes);
 app.use("/face", faceRecognitionRoutes)
+app.use("/user", userRoutes)
 
 app.listen(PORT, () => {
   console.log("listening on port 3000");

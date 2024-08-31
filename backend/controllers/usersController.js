@@ -1,4 +1,4 @@
-import Visitor from "../models/visitor-model";
+import Visitor from "../models/visitor-model.js";
 import jwt from "jsonwebtoken";
 import { ApiStatusCodes, ResponseMessages } from "../enums/app.enums.js";
 import { comparePassword } from "../utils/app.utils.js";
@@ -59,9 +59,10 @@ export const visitorLoginService = async (req,res) => {
           message: "User already exists",
         })
     }
-    const visitor=new Visitor({name, email, password, role:"visitor"})
+    const visitor=new Visitor({name, email_id, password, role:"visitor"})
     await visitor.save().then(()=>{
-        res.send( {
+      console.log("yaya")
+        res.json( {
         status_code: ApiStatusCodes.INTERNAL_SERVER_ERROR,
         data: null,
         message: err.message,

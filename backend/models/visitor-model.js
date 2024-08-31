@@ -9,6 +9,6 @@ const VisitorSchema = new mongoose.Schema({
   // Additional fields can be added based on the visitor's interaction with the site
 });
 
-Visitor = mongoose.model("Visitor", VisitorSchema);
+const Visitor = mongoose.model("Visitor", VisitorSchema);
 
 export default Visitor;
