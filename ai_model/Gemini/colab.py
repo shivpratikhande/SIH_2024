@@ -1,15 +1,11 @@
 import google.generativeai as genai
-from pymongo import MongoClient
 import time
 
 # Configure Google Generative AI
 genai.configure(api_key="AIzaSyC8QVswiobSY_zFhch2Gn346tsWa4LWPeg") # Replace with your actual API key
 model = genai.GenerativeModel("gemini-pro")
 
-# Connect to MongoDB
-client = MongoClient('mongodb://localhost:27017/')
-db = client['user']  # Change this to your database name
-users_collection = db['users']  # Change this to your collection name
+ # Change this to your collection name
 
 def get_query(query):
     print(query)
