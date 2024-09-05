@@ -15,6 +15,7 @@ import PrisonerFaceRecognition from '../Pages/PrisonerFaceRecognition';
 import DocumentUpload from '../Pages/DocumentUpload';
 import LegalQuery from '../Pages/LegalQuery';
 import axios from 'axios';
+import BailBuddy from './BailBuddy';
 
 const Dashboard = () => {
   const [activeComponent, setActiveComponent] = useState('BailEligibility');
@@ -70,6 +71,8 @@ const Dashboard = () => {
         return <ChooseLawyer />;
       case 'LegalQuery':
         return <LegalQuery />;
+      case 'BailBuddy':
+        return <BailBuddy />;
       default:
         return <BailEligibility />;
     }

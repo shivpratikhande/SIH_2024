@@ -13,7 +13,8 @@ const Sidebar = ({ handleNavigation, activeComponent }) => {
     { label: 'Documents', value: 'Documents', icon: <FaFolder /> },
     { label: 'Choose Lawyer', value: 'ChooseLawyer', icon: <FaUserTie /> },
     { label: 'LegalQuery', value: 'LegalQuery', icon: <FaUserTie /> },
-    { label: 'PrisonerFaceRecognition', value: 'PrisonerFaceRecognition', icon: <FaUserTie /> }
+    { label: 'PrisonerFaceRecognition', value: 'PrisonerFaceRecognition', icon: <FaUserTie /> },
+    { label: 'BailBuddy', value: 'BailBuddy', icon: <FaUserTie /> }
   ];
 
   return (
