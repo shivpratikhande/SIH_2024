@@ -97,7 +97,7 @@ export const caseJudgeController = async (req, res) => {
           responseFormatter(
             ApiStatusCodes.OK,
             true,
-            judgeLoginResponse.data,
+            cases.data,
             "Judge cases retrieved successfully"
           )
         );

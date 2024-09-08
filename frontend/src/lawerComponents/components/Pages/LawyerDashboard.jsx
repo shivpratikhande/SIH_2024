@@ -25,7 +25,7 @@ function LawyerDashboard() {
   return (
     <div className="flex h-screen">
       <Sidebar />
-      <div className="flex-1 p-6 relative">
+      <div className="flex-1 p-6 relative lg:pl-64">
         {/* Profile Box */}
         <ProfileBox
           showProfile={showProfile}

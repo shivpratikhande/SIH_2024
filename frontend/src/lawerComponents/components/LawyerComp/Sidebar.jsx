@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 
 const Sidebar = () => {
   return (
-    <div style={{ backgroundColor: '#03346E' }} className="w-64 h-screen text-white">
+    <div style={{ backgroundColor: '#03346E' }} className="w-64 h-screen text-white lg:fixed lg:top-0 lg:left-0 lg:h-screen z-50">
       <div className="p-2 text-2xl font-bold">Lawyer Dashboard</div>
       <ul className="mt-6 space-y-4">
         <li>
@@ -102,7 +102,7 @@ const Sidebar = () => {
             Cases
           </NavLink>
         </li>
-        <li className="hover:bg-slate-400 block px-7 py-1 rounded cursor-pointer">Logout</li>
+        <li className={`block px-4 py-2 rounded-lg transition-colors duration-300 hover:bg-white hover:text-[#03346E] font-semibold`}>Logout</li>
       </ul>
     </div>
   );

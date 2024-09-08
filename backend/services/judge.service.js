@@ -52,7 +52,7 @@ export const loginJudgeService = async (email_id, password) => {
 export const getJudgeCases = async (judgeId) => {
   try {
     console.log(judgeId)
-    const cases = await Case.findOne({ judge: new mongoose.Types.ObjectId(judgeId) });
+    const cases = await Case.find({ judge: new mongoose.Types.ObjectId(judgeId) });
     console.log(cases);
     if (!cases || cases.length === 0) {
       return {
