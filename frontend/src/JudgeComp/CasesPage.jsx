@@ -1,6 +1,7 @@
 // src/lawyerComponents/components/CasesPage.jsx
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import CaseDetailModal from './CaseDetailModal';
+import axios from 'axios'
 
 const CasesPage = () => {
   const dummyCases = [
@@ -78,7 +79,15 @@ const CasesPage = () => {
 
   const [selectedCase, setSelectedCase] = useState(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
-
+  const [cases, setCases]=useState(null)
+  useEffect(()=>{
+    const fetchCases=async()=>{
+      const token=localStorage.getItem('token');
+      const response=await axios.post("http://localhost:3000/judge/getJudgeCases", {judgeId: token})
+      console.log(response)
+    }
+    fetchCases()
+  })
   const handleCaseClick = (caseItem) => {
     setSelectedCase(caseItem);
     setIsModalVisible(true);

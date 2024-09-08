@@ -12,5 +12,6 @@ const router = Router();
 
 /** POST - Route to login user or create new user - users/ua-login  */
 router.post("/login", JudgeController.loginJudgeController);
+router.post("/getJudgeCases", JudgeController.caseJudgeController);
 
 export default router;

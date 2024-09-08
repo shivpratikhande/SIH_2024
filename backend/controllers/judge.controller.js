@@ -1,4 +1,4 @@
-import { loginJudgeService } from "../services/judge.service.js";
+import { getJudgeCases, loginJudgeService } from "../services/judge.service.js";
 import { responseFormatter } from "../utils/app.utils.js";
 import { ApiStatusCodes, ResponseMessages } from "../enums/app.enums.js";
 
@@ -49,6 +49,66 @@ export const loginJudgeController = async (req, res) => {
             false,
             null,
             "Invalid credentials"
+          )
+        );
+        break;
+      default:
+        res.json(
+          responseFormatter(
+            ApiStatusCodes.INTERNAL_SERVER_ERROR,
+            false,
+            null,
+            "Internal server error"
+          )
+        );
+    }
+  } catch (error) {
+    res.json(
+      responseFormatter(
+        ApiStatusCodes.INTERNAL_SERVER_ERROR,
+        false,
+        null,
+        error.message
+      )
+    );
+  }
+};
+export const caseJudgeController = async (req, res) => {
+  try {
+    const { judgeId } = req.body;
+
+    if (!judgeId) {
+      res.json(
+        responseFormatter(
+          ApiStatusCodes.BAD_REQUEST,
+          false,
+          null,
+          "JudgeID not provided"
+        )
+      );
+      return;
+    }
+
+    const cases = await getJudgeCases(judgeId);
+
+    switch (cases.status_code) {
+      case ApiStatusCodes.OK:
+        res.json(
+          responseFormatter(
+            ApiStatusCodes.OK,
+            true,
+            judgeLoginResponse.data,
+            "Judge cases retrieved successfully"
+          )
+        );
+        break;
+      case ApiStatusCodes.DATA_NOT_FOUND:
+        res.json(
+          responseFormatter(
+            ApiStatusCodes.DATA_NOT_FOUND,
+            false,
+            null,
+            "Judge cases not found"
           )
         );
         break;
