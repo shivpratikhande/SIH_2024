@@ -224,7 +224,7 @@ export const getCasesByPrisonerIdService = async (prisonerId) => {
 
     console.log(prisonerId);
     // Find the case based on the prisonerId
-    const cases = await Case.findOne({ prisonerId: new mongoose.Types.ObjectId(prisonerId) });
+    const cases = await Case.findOne({ prisonerId: new mongoose.Types.ObjectId(prisonerId) }).populate('judge').populate('lawyer');
     console.log(cases);
 
     // Check if any cases were found
