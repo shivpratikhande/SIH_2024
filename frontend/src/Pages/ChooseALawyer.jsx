@@ -32,9 +32,7 @@ const ChooseLawyer = () => {
         <h3 className='text-primary'>Pro Bono</h3>
         <div
       onClick={toggleSwitch}
-      className={`w-8 h-4 flex items-center mt-1 bg-gray-300 rounded-full  cursor-pointer ${
-        isLawyer ? "bg-blue-500" : ""
-      }`}
+      className={`w-8 h-4 flex items-center mt-1  rounded-full  cursor-pointer ${isLawyer ? "bg-primary" : "bg-gray-300"}`}
     >
       <div
         className={`bg-white w-3 h-3 rounded-full shadow-md transform duration-300 ease-in-out ${

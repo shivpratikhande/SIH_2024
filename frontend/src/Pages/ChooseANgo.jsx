@@ -30,7 +30,7 @@ const ChooseNgo = () => {
         <input
           type="text"
           placeholder="Search by name or specialization or location..."
-          className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+          className="w-full p-3 border border-gray-300 rounded-lg  focus:outline-none focus:ring-2 focus:ring-primary"
           value={searchTerm}
           onChange={handleSearchChange}
         />
