@@ -8,14 +8,17 @@ const ChooseLawyer = () => {
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
   };
+  const [isLawyer, setIsLawyer] = useState(true);
 
+  const toggleSwitch = () => setIsLawyer(!isLawyer);
   // Filter lawyers based on the search term
-  const filteredLawyers = lawyers.filter((lawyer) =>
-    lawyer.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    lawyer.specialization.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    lawyer.location.toLowerCase().includes(searchTerm.toLowerCase())
 
+  const filteredLawyers = lawyers.filter((lawyer) =>
+    (lawyer.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    lawyer.specialization.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    lawyer.location.toLowerCase().includes(searchTerm.toLowerCase()))&&(lawyer.type==`${isLawyer?"lawyer":"probono"}`)
   );
+  
   const handleWhatsAppClick = (phoneNumber) => {
     const formattedNumber = phoneNumber.replace(/\s+/g, '');
     const whatsappUrl = `https://wa.me/${formattedNumber}`;
@@ -23,7 +26,25 @@ const ChooseLawyer = () => {
   };
   return (
     <div className="bg-white border border-primary p-8 rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300">
+
       <h2 className="text-3xl font-bold text-primary mb-6">Lawyers</h2>
+      <div className='flex gap-x-2  items-center pb-2'>
+        <h3 className='text-primary'>Pro Bono</h3>
+        <div
+      onClick={toggleSwitch}
+      className={`w-8 h-4 flex items-center mt-1 bg-gray-300 rounded-full  cursor-pointer ${
+        isLawyer ? "bg-blue-500" : ""
+      }`}
+    >
+      <div
+        className={`bg-white w-3 h-3 rounded-full shadow-md transform duration-300 ease-in-out ${
+          isLawyer ? "translate-x-4" : "translate-x-1"
+        }`}
+      ></div>
+    </div>
+        <h3 className='text-primary'>Lawyers</h3>
+
+      </div>
 
       {/* Search Bar */}
       <div className="mb-6">
@@ -44,6 +65,7 @@ const ChooseLawyer = () => {
               <div>
                 <p className="text-xl font-semibold">{lawyer.name}</p>
                 <p className="text-md text-gray-700">Specialization: {lawyer.specialization}</p>
+                <p className="text-md text-gray-700">Type: {lawyer.type.charAt(0).toUpperCase()+lawyer.type.slice(1)}</p>
                 <p className="text-md text-gray-700">Experience: {lawyer.experience}</p>
                 <p className="text-md text-gray-700">Location: {lawyer.location}</p>
                 <p className="text-md text-gray-700">Phone: {lawyer.contactDetails.phone}</p>

@@ -16,7 +16,7 @@ import DocumentUpload from '../Pages/DocumentUpload';
 import LegalQuery from '../Pages/LegalQuery';
 import axios from 'axios';
 import BailBuddy from './BailBuddy';
-
+import ChooseNgo from '../Pages/ChooseANgo';
 const Dashboard = () => {
   const [activeComponent, setActiveComponent] = useState('BailEligibility');
   const [showProfile, setShowProfile] = useState(false); // State for profile visibility
@@ -69,6 +69,8 @@ const Dashboard = () => {
         return <PrisonerFaceRecognition />;
       case 'ChooseLawyer':
         return <ChooseLawyer />;
+      case 'ChooseNgo':
+        return <ChooseNgo />;
       case 'LegalQuery':
         return <LegalQuery />;
       case 'BailBuddy':
